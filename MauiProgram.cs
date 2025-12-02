@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Noter.Views;
 
 namespace Noter
 {
@@ -19,7 +20,9 @@ namespace Noter
     		builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+			//builder.Services.AddSingleton<NotesPage>();
+
+			return builder.Build();
         }
     }
 }
