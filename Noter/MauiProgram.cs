@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using Noter.Database.SqlLite;
+using Noter.UseCases;
+using Noter.UseCases.DatabaseInterfaces;
+using Noter.UseCases.UseCaseInterfaces;
 using Noter.Views;
 
 namespace Noter
@@ -19,8 +23,8 @@ namespace Noter
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
-			//builder.Services.AddSingleton<NotesPage>();
+			builder.Services.AddSingleton<INoterDataStoreRepository, SqlLiteRepository>();
+			builder.Services.AddSingleton<IViewNotesUseCase, ViewNotesUseCase>();
 
 			return builder.Build();
         }
