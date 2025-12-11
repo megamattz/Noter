@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Noter.Database.SqlLite;
 using Noter.UseCases;
 using Noter.UseCases.DatabaseInterfaces;
 using Noter.UseCases.UseCaseInterfaces;
-using Noter.Views;
 
 namespace Noter
 {
-    public static class MauiProgram
+	public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()
         {
@@ -23,10 +23,30 @@ namespace Noter
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+			//-----------------------------
+			// Database Setup //
+			// ----------------------------
+
+			// Setup the connection to the Sqllite data source
+			builder.Services.AddDbContext<NoterDBContext>(options =>
+			{
+				string path = Constants.DatabasePath;
+				Directory.CreateDirectory(Path.GetDirectoryName(path)!); 
+				options.UseSqlite($"Data Source={path}");
+			});
+
+			//-----------------------------
+			// Use Case Setup //
+			// ----------------------------
 			builder.Services.AddSingleton<INoterDataStoreRepository, SqlLiteRepository>();
 			builder.Services.AddSingleton<IViewNotesUseCase, ViewNotesUseCase>();
 
+			//-----------------------------
+			// Setup the database migration //
+			// ----------------------------
+			builder.Services.AddSingleton<DatabaseMigrationService>();
+
 			return builder.Build();
-        }
+		}
     }
 }
