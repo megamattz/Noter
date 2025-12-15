@@ -5,4 +5,4 @@
 
 # Noter
 
-A simple .Net MAUI Application for taking notes on your phone and saving them to the local device. 
+A simple .Net MAUI Application for taking notes on your phone. The notes are stored locally on the device using the SqlLite database.

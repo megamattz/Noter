@@ -1,26 +1,63 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:views="clr-namespace:Noter.Views"
              x:Class="Noter.Views.NotesPage"
-             Title="Noter"> 
+			 x:DataType="views:NotesPage"
+			 xmlns:core="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
+             Title="Noter">
 	<Grid>
-		<VerticalStackLayout>
-			<Label 
-         Text="Noter!"
-         VerticalOptions="Center" 
-         HorizontalOptions="Center" />
-		</VerticalStackLayout>
-		<ListView
-			RowHeight="60"
-			x:Name="lstNotes">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="100" />
+		</Grid.RowDefinitions>
 
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<TextCell
-						Text="{Binding NoteText}">
-					</TextCell>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<CollectionView 
+			ItemsSource="{Binding NotesCollection}"
+			Grid.Row="0"
+			VerticalOptions="FillAndExpand"
+			Grid.Column="0">
+			<CollectionView.ItemTemplate>
+				<DataTemplate
+					x:DataType="core:Note">
+					<VerticalStackLayout>
+						<Label Text="{Binding NoteTitle}" />
+						<Label Text="{Binding NoteText}" />
+					</VerticalStackLayout>
+
 				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+
+		<Grid
+			Grid.Column="0"
+			Grid.Row="1">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<Button
+				Text="Add"
+				x:Name="btnAdd"
+				Grid.Row="0"
+				Grid.Column="0"/>
+
+			<Button
+				x:Name="btnDelete"
+				Text="Delete"
+				Grid.Row="0"
+				Grid.Column="1"/>
+		</Grid>
 	</Grid>
+
 </ContentPage>
