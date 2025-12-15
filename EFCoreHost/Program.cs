@@ -1,6 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Noter.Database.SqlLite;
 
+// COMMAND TO ADD A NEW MIGRATION
+// Run this in the console. Replace <name> with the new name of the migration
+//---------------------------------------------------------------------------------------------------
+//  dotnet ef migrations add <name> --project Noter.Database.SqlLite --startup-project EFCoreHost
+//---------------------------------------------------------------------------------------------------
+
 // This is a host program for generating the EntityFramework DBMigration scripts. 
 // It is needed since it EntityFramework has trouble generating then from within Noter.Database.SqlLite directly.
 
@@ -30,5 +36,3 @@ Console.WriteLine($"Location: {Constants.DatabasePath}");
 Console.WriteLine();
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
-
-

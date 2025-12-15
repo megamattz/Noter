@@ -14,28 +14,31 @@ namespace Noter.Database.SqlLite
 			_dbContext = dbContext;
 		}
 
+		/// <summary>
+		/// Adds a new note
+		/// </summary>
+		/// <param name="newNote"></param>
+		/// <returns></returns>
+		public async Task<bool> AddNoteAsync(Note newNote)
+		{
+			await _dbContext.Notes.AddAsync(new Note()
+			{
+				NoteText = newNote.NoteText,
+				NoteTitle = newNote.NoteTitle,
+				NoteModifiedDate = DateTimeOffset.Now,
+				NoteCreationDate = DateTimeOffset.Now,
+			});
+
+			int recordsAdded = await _dbContext.SaveChangesAsync();
+			return recordsAdded > 0;
+		}
+
+		/// <summary>
+		/// Returns a list of notes
+		/// </summary>
+		/// <returns></returns>
 		public async Task<List<Note>> GetNotesAsync()
 		{
-			
-			// Temp only for testing until add is implemented
-
-			//await _dbContext.Notes.AddAsync(new Note()
-			//{
-			//	NoteId = 1,
-			//	NoteText = "Hello World",
-			//	NoteTitle = "Title",
-			//});
-
-			await _dbContext.SaveChangesAsync();
-
-			//List<Note> notes = new List<Note>();
-			//notes.Add(new Note()
-			//{
-			//	NoteId = 1,
-			//	NoteText = "Hello World",
-			//	NoteTitle = "Title",
-			//});
-
 			return await _dbContext.Notes.ToListAsync();
 		}
 	}

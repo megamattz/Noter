@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -17,7 +18,9 @@ namespace Noter.Database.SqlLite.Migrations
                     NoteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     NoteTitle = table.Column<string>(type: "TEXT", nullable: false),
-                    NoteText = table.Column<string>(type: "TEXT", nullable: false)
+                    NoteText = table.Column<string>(type: "TEXT", nullable: false),
+                    NoteCreationDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    NoteModifiedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

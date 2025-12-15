@@ -4,6 +4,7 @@ using Noter.Database.SqlLite;
 using Noter.UseCases;
 using Noter.UseCases.DatabaseInterfaces;
 using Noter.UseCases.UseCaseInterfaces;
+using Noter.Views;
 
 namespace Noter
 {
@@ -40,6 +41,13 @@ namespace Noter
 			// ----------------------------
 			builder.Services.AddSingleton<INoterDataStoreRepository, SqlLiteRepository>();
 			builder.Services.AddSingleton<IViewNotesUseCase, ViewNotesUseCase>();
+			builder.Services.AddSingleton<IAddNoteUseCase, AddNoteUseCase>();
+
+			//-----------------------------
+			// Navigation Setup //
+			// ----------------------------
+			builder.Services.AddSingleton<NotesPage>();
+			builder.Services.AddSingleton<AddNotePage>();
 
 			//-----------------------------
 			// Setup the database migration //
