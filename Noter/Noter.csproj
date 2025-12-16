@@ -70,8 +70,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\AddNotePage.xaml.cs">
-	    <DependentUpon>AddNotePage.xaml</DependentUpon>
+	  <Compile Update="Views\AddEditNotePage.xaml.cs">
+	    <DependentUpon>AddEditNotePage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\NotesPage.xaml.cs">
 	    <DependentUpon>NotesPage.xaml</DependentUpon>
@@ -79,7 +79,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AddNotePage.xaml">
+	  <MauiXaml Update="Views\AddEditNotePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\NoteEditControl.xaml">

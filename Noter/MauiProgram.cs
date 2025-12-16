@@ -4,6 +4,7 @@ using Noter.Database.SqlLite;
 using Noter.UseCases;
 using Noter.UseCases.DatabaseInterfaces;
 using Noter.UseCases.UseCaseInterfaces;
+using Noter.ViewModels;
 using Noter.Views;
 
 namespace Noter
@@ -48,6 +49,12 @@ namespace Noter
 			// ----------------------------
 			builder.Services.AddSingleton<NotesPage>();
 			builder.Services.AddSingleton<AddNotePage>();
+
+			// ----------------------------
+			// View Model Setup //
+			// ----------------------------
+			builder.Services.AddSingleton<NotesPageViewModel>();
+			builder.Services.AddSingleton<AddEditNotePageViewModel>();
 
 			//-----------------------------
 			// Setup the database migration //

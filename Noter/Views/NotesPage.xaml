@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:views="clr-namespace:Noter.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"			
              x:Class="Noter.Views.NotesPage"
-			 x:DataType="views:NotesPage"
+			 xmlns:vm="clr-namespace:Noter.ViewModels"  
+			 x:DataType="vm:NotesPageViewModel"			   
 			 xmlns:core="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
              Title="Noter">
 	<Grid>
@@ -17,7 +17,7 @@
 		</Grid.ColumnDefinitions>
 
 		<CollectionView 
-			ItemsSource="{Binding NotesCollection}"
+			ItemsSource="{Binding Notes}"
 			Grid.Row="0"
 			VerticalOptions="FillAndExpand"
 			Grid.Column="0">
@@ -48,7 +48,7 @@
 
 			<Button
 				Text="Add"
-				x:Name="btnAdd"
+				Command="{Binding AddNewNoteCommand}"
 				Grid.Row="0"
 				Grid.Column="0"/>
 
