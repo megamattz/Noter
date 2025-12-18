@@ -13,7 +13,7 @@ public partial class NotesPage : ContentPage
 		_viewModel = viewModel;
 
 		// Setup the binding context
-		BindingContext = _viewModel;		
+		BindingContext = _viewModel;
 	}
 
 	private async void btnAdd_Clicked(object? sender, EventArgs e)

@@ -2,8 +2,8 @@
 
 namespace Noter.UseCases.UseCaseInterfaces
 {
-	public interface IViewNotesUseCase
+	public interface IViewNoteUseCase
 	{
-		Task<List<Note>> ExecuteAsync();
+		Task<Note> ExecuteAsync(int noteId);
 	}
 }

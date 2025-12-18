@@ -20,6 +20,9 @@
 			ItemsSource="{Binding Notes}"
 			Grid.Row="0"
 			VerticalOptions="FillAndExpand"
+			SelectionMode="Single"
+			SelectionChangedCommand="{Binding OpenNoteCommand}"
+			SelectedItem="{Binding SelectedNote}"
 			Grid.Column="0">
 			<CollectionView.ItemTemplate>
 				<DataTemplate

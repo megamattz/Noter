@@ -43,18 +43,21 @@ namespace Noter
 			builder.Services.AddSingleton<INoterDataStoreRepository, SqlLiteRepository>();
 			builder.Services.AddSingleton<IViewNotesUseCase, ViewNotesUseCase>();
 			builder.Services.AddSingleton<IAddNoteUseCase, AddNoteUseCase>();
+			builder.Services.AddSingleton<IViewNoteUseCase, ViewNoteUseCase>();
 
 			//-----------------------------
 			// Navigation Setup //
 			// ----------------------------
 			builder.Services.AddSingleton<NotesPage>();
 			builder.Services.AddSingleton<AddNotePage>();
+			builder.Services.AddSingleton<ViewNotePage>();
 
 			// ----------------------------
 			// View Model Setup //
 			// ----------------------------
 			builder.Services.AddSingleton<NotesPageViewModel>();
 			builder.Services.AddSingleton<AddEditNotePageViewModel>();
+			builder.Services.AddSingleton<ViewNoteViewModel>();
 
 			//-----------------------------
 			// Setup the database migration //

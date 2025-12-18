@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Noter.Views.Controls.NoteEditControl">
+			 xmlns:vm="clr-namespace:Noter.ViewModels"
+			 x:DataType="vm:ViewNoteViewModel"
+             x:Class="Noter.Views.ViewNotePage"
+             Title="ViewNotePage">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="100" />
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="100" />
 		</Grid.RowDefinitions>
-		
+
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 
 		<StackLayout
-			Grid.Row="0"
-			Grid.Column="0">
+	Grid.Row="0"
+	Grid.Column="0">
 			<Label Text="Note Title" />
-			<Entry />
+			<Entry
+			Text="{Binding Note.NoteTitle}"/>
 		</StackLayout>
 
 		<StackLayout
-			Grid.Row="1"
-			Grid.Column="0">
+	Grid.Row="1"
+	Grid.Column="0">
 			<Label Text="Note Text" />
 			<Editor
-				VerticalOptions="FillAndExpand"/>
+		Text="{Binding Note.NoteText}"
+		VerticalOptions="FillAndExpand"/>
 		</StackLayout>
 
 		<Grid
-			Grid.Row="2"
-			Grid.Column="0">
+	Grid.Row="2"
+	Grid.Column="0">
 
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*" />
@@ -42,16 +47,16 @@
 			</Grid.ColumnDefinitions>
 
 			<Button
-				Text="Save"
-				x:Name="btnSave"
-				Grid.Row="0"
-				Grid.Column="0"/>
+		Text="Back"
+		Command="{Binding BackCommand}"
+		Grid.Row="0"
+		Grid.Column="0"/>
 
 			<Button
-				x:Name="btnCancel"
-				Text="Cancel"
-				Grid.Row="0"
-				Grid.Column="1"/>
+		x:Name="btnCancel"
+		Text="Edit"
+		Grid.Row="0"
+		Grid.Column="1"/>
 		</Grid>
 	</Grid>
-</ContentView>
+</ContentPage>

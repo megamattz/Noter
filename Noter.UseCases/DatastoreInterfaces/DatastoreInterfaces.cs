@@ -6,6 +6,8 @@ namespace Noter.UseCases.DatabaseInterfaces
 	{
 		Task<List<Note>> GetNotesAsync();
 
+		Task<Note> GetNoteByIdAsync(int noteId);
+
 		Task<bool> AddNoteAsync(Note newNote);
 	}
 }

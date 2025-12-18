@@ -12,15 +12,32 @@ namespace Noter.ViewModels
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		private ObservableCollection<Note> _notes = new ObservableCollection<Note>();
+		private Note? _selectedNote;
+
 
 		private IViewNotesUseCase _viewNotesUseCase;
 
+		public Note? SelectedNote
+		{
+			get
+			{
+				return _selectedNote;
+			}
+			set
+			{
+				_selectedNote = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public ICommand AddNewNoteCommand { get; }
+		public ICommand OpenNoteCommand { get; }
 
 		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase)
 		{
 			_viewNotesUseCase = viewNotesUseCase;
 			AddNewNoteCommand = new Command(async () => await NavigateToAddNotePage());
+			OpenNoteCommand = new Command(async () => await NavigateToViewNotePage());
 		}
 
 		public ObservableCollection<Note> Notes
@@ -30,12 +47,21 @@ namespace Noter.ViewModels
 			{
 				_notes = value;
 				OnPropertyChanged();
+				SelectedNote = null;
 			}
 		}
-	
+		
 		private async Task NavigateToAddNotePage()
 		{
 			await Shell.Current.GoToAsync("//AddNotePage");
+		}
+
+		public async Task NavigateToViewNotePage()
+		{
+			if (SelectedNote != null)
+			{
+				await Shell.Current.GoToAsync($"//ViewNotePage?noteId={SelectedNote.NoteId}");
+			}
 		}
 
 		public async Task LoadNotesAsync()

@@ -41,5 +41,17 @@ namespace Noter.Database.SqlLite
 		{
 			return await _dbContext.Notes.ToListAsync();
 		}
+
+		public async Task<Note> GetNoteByIdAsync(int nodeId)
+		{
+			Note? note = await _dbContext.Notes.FirstOrDefaultAsync(n => n.NoteId == nodeId);
+
+			if (note == null)
+			{
+				throw new KeyNotFoundException($"Note with ID {nodeId} nout found");
+			}
+
+			return note;
+		}
 	}
 }
