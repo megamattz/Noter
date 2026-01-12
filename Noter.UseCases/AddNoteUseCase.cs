@@ -11,7 +11,7 @@ namespace Noter.UseCases
 {
 	public class AddNoteUseCase : IAddNoteUseCase
 	{
-		private INoterDataStoreRepository _notesDataStoreRepository;
+		private readonly INoterDataStoreRepository _notesDataStoreRepository;
 
 		public AddNoteUseCase(INoterDataStoreRepository noterDataStoreRepository)
 		{

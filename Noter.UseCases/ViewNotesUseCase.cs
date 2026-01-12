@@ -6,7 +6,7 @@ namespace Noter.UseCases
 {
 	public class ViewNotesUseCase : IViewNotesUseCase
 	{
-		private INoterDataStoreRepository _notesDataStoreRepository;
+		private readonly INoterDataStoreRepository _notesDataStoreRepository;
 
 		public ViewNotesUseCase(INoterDataStoreRepository notesDataStoreRepository)
 		{

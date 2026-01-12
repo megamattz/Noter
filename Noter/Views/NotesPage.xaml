@@ -17,20 +17,31 @@
 		</Grid.ColumnDefinitions>
 
 		<CollectionView 
+			x:Name="notesCollection"
 			ItemsSource="{Binding Notes}"
+			BindingContext="{Binding .}" 
 			Grid.Row="0"
 			VerticalOptions="FillAndExpand"
-			SelectionMode="Single"
-			SelectionChangedCommand="{Binding OpenNoteCommand}"
-			SelectedItem="{Binding SelectedNote}"
+			SelectionMode="None"
 			Grid.Column="0">
-			<CollectionView.ItemTemplate>
+			<CollectionView.ItemTemplate>				
 				<DataTemplate
 					x:DataType="core:Note">
-					<VerticalStackLayout>
-						<Label Text="{Binding NoteTitle}" />
-						<Label Text="{Binding NoteText}" />
-					</VerticalStackLayout>
+
+					<Border 
+						StrokeThickness="1"
+						Padding="12,8">
+						<VerticalStackLayout>
+							<Label Text="{Binding NoteTitle}" />
+							<Label Text="{Binding NoteText}" />
+						</VerticalStackLayout>
+
+						<Border.GestureRecognizers>							
+							<TapGestureRecognizer 
+									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.OpenNoteCommand}"
+									CommandParameter="{Binding .}" />
+						</Border.GestureRecognizers>
+					</Border>
 
 				</DataTemplate>
 			</CollectionView.ItemTemplate>

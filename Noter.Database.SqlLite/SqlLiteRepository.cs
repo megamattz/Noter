@@ -34,6 +34,29 @@ namespace Noter.Database.SqlLite
 		}
 
 		/// <summary>
+		/// Updates an existing note
+		/// </summary>
+		/// <param name="updatedNote"></param>
+		/// <returns></returns>
+		public async Task<bool> EditNoteAsync(Note updatedNote)
+		{
+			Note? note = await _dbContext.Notes.FirstOrDefaultAsync(n => n.NoteId == updatedNote.NoteId);
+
+			if (note == null)
+			{
+				throw new KeyNotFoundException($"Note with ID {updatedNote.NoteId} not found to update");
+			}
+
+			note.NoteText = updatedNote.NoteText;
+			note.NoteTitle = updatedNote.NoteTitle;
+			note.NoteModifiedDate = DateTimeOffset.Now;
+
+			int recordsAdded = await _dbContext.SaveChangesAsync();
+
+			return recordsAdded > 0;
+		}
+
+		/// <summary>
 		/// Returns a list of notes
 		/// </summary>
 		/// <returns></returns>
@@ -48,10 +71,12 @@ namespace Noter.Database.SqlLite
 
 			if (note == null)
 			{
-				throw new KeyNotFoundException($"Note with ID {nodeId} nout found");
+				throw new KeyNotFoundException($"Note with ID {nodeId} not found");
 			}
 
 			return note;
 		}
+
+		
 	}
 }

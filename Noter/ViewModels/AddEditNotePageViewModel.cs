@@ -13,7 +13,8 @@ namespace Noter.ViewModels
 		public ICommand SaveNoteCommand { get; }
 		public Note Note { get; set; } = new Note();
 
-		private IAddNoteUseCase _addNoteUseCase;
+		private readonly IAddNoteUseCase _addNoteUseCase;
+		private readonly IEditNoteUseCase _editNoteUseCase;
 
 		private string _noteTitle = "";
 		private string _noteText = "";
@@ -45,9 +46,10 @@ namespace Noter.ViewModels
 			}
 		}
 
-		public AddEditNotePageViewModel(IAddNoteUseCase addNoteUseCase)
+		public AddEditNotePageViewModel(IAddNoteUseCase addNoteUseCase, IEditNoteUseCase editNoteUseCase)
 		{
 			_addNoteUseCase = addNoteUseCase;
+			_editNoteUseCase = editNoteUseCase;
 			SaveNoteCommand = new Command(async () => await SaveNote());
 		}
 

@@ -13,7 +13,7 @@ namespace Noter.ViewModels
 
 		public ICommand BackCommand { get; }
 
-		private IViewNoteUseCase _viewNoteUseCase;
+		private readonly IViewNoteUseCase _viewNoteUseCase;
 		private string? _noteIdQueryParam;
 
 		private Note? _note;

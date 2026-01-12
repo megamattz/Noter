@@ -15,7 +15,7 @@ namespace Noter.ViewModels
 		private Note? _selectedNote;
 
 
-		private IViewNotesUseCase _viewNotesUseCase;
+		private readonly IViewNotesUseCase _viewNotesUseCase;
 
 		public Note? SelectedNote
 		{
@@ -37,7 +37,7 @@ namespace Noter.ViewModels
 		{
 			_viewNotesUseCase = viewNotesUseCase;
 			AddNewNoteCommand = new Command(async () => await NavigateToAddNotePage());
-			OpenNoteCommand = new Command(async () => await NavigateToViewNotePage());
+			OpenNoteCommand = new Command<Note>(async note => await NavigateToViewNotePage(note));
 		}
 
 		public ObservableCollection<Note> Notes
@@ -56,11 +56,11 @@ namespace Noter.ViewModels
 			await Shell.Current.GoToAsync("//AddNotePage");
 		}
 
-		public async Task NavigateToViewNotePage()
+		public async Task NavigateToViewNotePage(Note selectedNote)
 		{
-			if (SelectedNote != null)
+			if (selectedNote != null)
 			{
-				await Shell.Current.GoToAsync($"//ViewNotePage?noteId={SelectedNote.NoteId}");
+				await Shell.Current.GoToAsync($"//ViewNotePage?noteId={selectedNote.NoteId}");
 			}
 		}
 
