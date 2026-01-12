@@ -28,20 +28,38 @@
 				<DataTemplate
 					x:DataType="core:Note">
 
-					<Border 
-						StrokeThickness="1"
-						Padding="12,8">
-						<VerticalStackLayout>
-							<Label Text="{Binding NoteTitle}" />
-							<Label Text="{Binding NoteText}" />
-						</VerticalStackLayout>
 
-						<Border.GestureRecognizers>							
-							<TapGestureRecognizer 
-									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.OpenNoteCommand}"
+					<SwipeView>
+
+						<SwipeView.RightItems>
+							<SwipeItems Mode="Reveal">
+
+								<SwipeItem Text="Edit"
+									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.EditNoteCommand}"
 									CommandParameter="{Binding .}" />
-						</Border.GestureRecognizers>
-					</Border>
+
+								<SwipeItem Text="Delete">
+
+								</SwipeItem>
+							</SwipeItems>
+						</SwipeView.RightItems>
+
+						<Border 
+							StrokeThickness="1"
+							Padding="12,8">
+							<VerticalStackLayout>
+								<Label Text="{Binding NoteTitle}" />
+								<Label Text="{Binding NoteText}" />
+							</VerticalStackLayout>
+
+							<Border.GestureRecognizers>
+								<TapGestureRecognizer 
+										Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.OpenNoteCommand}"
+										CommandParameter="{Binding .}" />
+							</Border.GestureRecognizers>
+						</Border>
+
+					</SwipeView>
 
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
