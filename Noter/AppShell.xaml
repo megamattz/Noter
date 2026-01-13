@@ -15,8 +15,8 @@
 
 	<ShellContent
 		Title="Add Note"
-		ContentTemplate="{DataTemplate views:AddNotePage}"
-		Route="AddNotePage" />
+		ContentTemplate="{DataTemplate views:AddEditNotePage}"
+		Route="AddEditNotePage" />
 
 	<ShellContent
 		Title="Add Note"

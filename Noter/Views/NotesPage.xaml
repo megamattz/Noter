@@ -27,22 +27,22 @@
 			<CollectionView.ItemTemplate>				
 				<DataTemplate
 					x:DataType="core:Note">
-
-
+					
 					<SwipeView>
 
-						<SwipeView.RightItems>
+						<SwipeView.LeftItems>
 							<SwipeItems Mode="Reveal">
 
 								<SwipeItem Text="Edit"
 									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.EditNoteCommand}"
 									CommandParameter="{Binding .}" />
 
-								<SwipeItem Text="Delete">
+								<SwipeItem Text="Delete"
+									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.DeleteNoteCommand}"	   
+									CommandParameter="{Binding .}" />
 
-								</SwipeItem>
 							</SwipeItems>
-						</SwipeView.RightItems>
+						</SwipeView.LeftItems>
 
 						<Border 
 							StrokeThickness="1"

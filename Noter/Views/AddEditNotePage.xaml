@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:vm="clr-namespace:Noter.ViewModels"
 			 x:DataType="vm:AddEditNotePageViewModel"
-             x:Class="Noter.Views.AddNotePage"
+             x:Class="Noter.Views.AddEditNotePage"
              Title="Add Note">
 
 	<Grid>

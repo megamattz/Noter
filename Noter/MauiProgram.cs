@@ -45,12 +45,13 @@ namespace Noter
 			builder.Services.AddSingleton<IAddNoteUseCase, AddNoteUseCase>();
 			builder.Services.AddSingleton<IViewNoteUseCase, ViewNoteUseCase>();
 			builder.Services.AddSingleton<IEditNoteUseCase, EditNoteUseCase>();
+			builder.Services.AddSingleton<IDeleteNoteUseCase, DeleteNoteUseCase>();
 
 			//-----------------------------
 			// Navigation Setup //
 			// ----------------------------
 			builder.Services.AddSingleton<NotesPage>();
-			builder.Services.AddSingleton<AddNotePage>();
+			builder.Services.AddSingleton<AddEditNotePage>();
 			builder.Services.AddSingleton<ViewNotePage>();
 
 			// ----------------------------

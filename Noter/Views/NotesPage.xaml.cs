@@ -18,7 +18,7 @@ public partial class NotesPage : ContentPage
 
 	private async void btnAdd_Clicked(object? sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync("//AddNotePage");
+		await Shell.Current.GoToAsync("//AddEditNotePage");
 	}
 
 	protected override async void OnAppearing()

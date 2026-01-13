@@ -16,6 +16,7 @@ namespace Noter.ViewModels
 
 
 		private readonly IViewNotesUseCase _viewNotesUseCase;
+		private readonly IDeleteNoteUseCase _deleteNoteUseCase;
 
 		public Note? SelectedNote
 		{
@@ -36,13 +37,15 @@ namespace Noter.ViewModels
 		public ICommand EditNoteCommand { get; }
 		public ICommand DeleteNoteCommand { get; }
 
-		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase)
+		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase)
 		{
 			_viewNotesUseCase = viewNotesUseCase;
+			_deleteNoteUseCase = deleteNoteUseCase;
+
 			AddNewNoteCommand = new Command(async () => await NavigateToAddNotePage());
 			OpenNoteCommand = new Command<Note>(async note => await NavigateToViewNotePage(note));
 			EditNoteCommand =new Command<Note>(async note => await NavigateToEditNotePage(note));
-			DeleteNoteCommand = new Command(async () => await DeleteNote());
+			DeleteNoteCommand = new Command<Note>(async note => await DeleteNote(note));
 		}
 
 		public ObservableCollection<Note> Notes
@@ -58,7 +61,7 @@ namespace Noter.ViewModels
 		
 		private async Task NavigateToAddNotePage()
 		{
-			await Shell.Current.GoToAsync("//AddNotePage");
+			await Shell.Current.GoToAsync("//AddEditNotePage");
 		}
 
 		private async Task NavigateToEditNotePage(Note selectedNote)
@@ -66,9 +69,39 @@ namespace Noter.ViewModels
 			throw new NotImplementedException();
 		}
 
-		private async Task DeleteNote()
+		private async Task DeleteNote(Note noteToDelete)
 		{
-			throw new NotImplementedException();
+			Page? currentPage = Application.Current?.Windows.FirstOrDefault()?.Page;
+
+			if (currentPage == null)
+			{
+				// Should only happen in rare edge cases
+				System.Diagnostics.Debug.WriteLine("Cannot show delete confirmation - no active window");
+				return;
+			}
+
+			bool confirmed = await currentPage.DisplayAlert(
+				"Confirm Delete",
+				$"Delete \"{noteToDelete.NoteTitle}\"? This cannot be undone.",
+				"Delete",   
+				"Cancel");
+
+			if (confirmed) 
+			{
+				// Delete the note from the data store
+				bool success = await _deleteNoteUseCase.ExecuteAsync(noteToDelete.NoteId);
+
+				if (!success)
+				{
+					await currentPage.DisplayAlert(
+						 "Error",
+						 "Failed to delete the note. Please try again.",
+						 "OK");
+				}
+
+				// Delete the note from the collection so you can see it updated on the UI
+				_notes.Remove(noteToDelete);
+			}
 		}
 
 		public async Task NavigateToViewNotePage(Note selectedNote)

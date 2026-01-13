@@ -77,6 +77,20 @@ namespace Noter.Database.SqlLite
 			return note;
 		}
 
-		
+
+		/// <summary>
+		/// Deletes a note
+		/// </summary>
+		/// <param name="noteId"></param>
+		/// <returns></returns>
+		public async Task<bool> DeleteNoteAsync(int noteId)
+		{
+			Note note = await GetNoteByIdAsync(noteId);
+
+			_dbContext.Notes.Remove(note);
+			int recordsDeleted = await _dbContext.SaveChangesAsync();
+
+			return recordsDeleted > 0;
+		}
 	}
 }

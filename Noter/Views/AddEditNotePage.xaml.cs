@@ -2,11 +2,11 @@ using Noter.ViewModels;
 
 namespace Noter.Views;
 
-public partial class AddNotePage : ContentPage
+public partial class AddEditNotePage : ContentPage
 {
 	private AddEditNotePageViewModel _viewModel;
 
-	public AddNotePage(AddEditNotePageViewModel viewModel)
+	public AddEditNotePage(AddEditNotePageViewModel viewModel)
 	{
 		InitializeComponent();
 		_viewModel = viewModel;
