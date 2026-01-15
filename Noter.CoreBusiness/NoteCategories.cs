@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Noter.CoreBusiness
+﻿namespace Noter.CoreBusiness
 {
 	public enum NoteCategories
 	{
-		None = 0,
-		Starred = 1
+		General = 0, 
+		Starred = 1, 
+		VideoGame = 2,
+		Food = 3, 
+		Tasks = 4,
+		Ideas = 5
 	}
 }

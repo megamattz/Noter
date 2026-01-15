@@ -23,6 +23,9 @@ namespace Noter.Database.SqlLite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("NoteCategory")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTimeOffset>("NoteCreationDate")
                         .HasColumnType("TEXT");
 
