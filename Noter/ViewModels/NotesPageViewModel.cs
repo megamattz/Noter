@@ -66,7 +66,7 @@ namespace Noter.ViewModels
 
 		private async Task NavigateToEditNotePage(Note selectedNote)
 		{
-			throw new NotImplementedException();
+			await Shell.Current.GoToAsync($"//AddEditNotePage?noteId={selectedNote.NoteId}");
 		}
 
 		private async Task DeleteNote(Note noteToDelete)
