@@ -7,9 +7,10 @@
 			 xmlns:core="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
              Title="Noter">
 	<Grid>
+		
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
-			<RowDefinition Height="100" />
+			<RowDefinition Height="80" />
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
@@ -24,7 +25,7 @@
 			VerticalOptions="FillAndExpand"
 			SelectionMode="None"
 			Grid.Column="0">
-			<CollectionView.ItemTemplate>				
+			<CollectionView.ItemTemplate>
 				<DataTemplate
 					x:DataType="core:Note">
 					
@@ -63,11 +64,23 @@
 
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
+
+			<CollectionView.EmptyView>
+				<Label
+					TextColor="{StaticResource EmptyStateColor}"
+					Padding="{StaticResource EmptyStatePadding}"
+					FontSize="{StaticResource EmptyStateFontSize}"
+					HorizontalOptions="CenterAndExpand"
+					Text="No Notes have been added yet. Press the Add button to add your first note.">
+				</Label>
+			</CollectionView.EmptyView>
 		</CollectionView>
 
 		<Grid
 			Grid.Column="0"
-			Grid.Row="1">
+			Grid.Row="1"
+			ColumnSpacing="10"
+			Padding="10,5,10,5">
 
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*" />
@@ -85,8 +98,8 @@
 				Grid.Column="0"/>
 
 			<Button
-				x:Name="btnDelete"
-				Text="Delete"
+				x:Name="btnOptions"
+				Text="Options"				
 				Grid.Row="0"
 				Grid.Column="1"/>
 		</Grid>

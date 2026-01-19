@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	
+	<!--Buttons-->
+	<Thickness x:Key="ButtonMargin">0,10,0,10</Thickness>
+	<Color x:Key="EditableTextBackgroundColor">#D3D3D3</Color>
+	
+	<!--Text Entry-->
+	<Color x:Key="EditableTextBorderColor">#000000</Color>
+	<x:Double x:Key="EditableTextBorderThickness">1</x:Double>
+	<Thickness x:Key="EditableTextBorderPadding">2,2,2,2</Thickness>
+	
+	<!--Empty State-->
+	<Color x:Key="EmptyStateColor">#3b3b3b</Color>
+	<Thickness x:Key="EmptyStatePadding">10,10,10,10</Thickness>
+	<x:Double x:Key="EmptyStateFontSize">20</x:Double>	
+
+</ResourceDictionary>
+

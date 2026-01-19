@@ -13,7 +13,7 @@ namespace Noter
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+			MauiAppBuilder builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -22,8 +22,10 @@ namespace Noter
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+			RemoveUnderlineOnEntry(builder);
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 			//-----------------------------
 			// Database Setup //
@@ -68,5 +70,34 @@ namespace Noter
 
 			return builder.Build();
 		}
-    }
+
+		private static void RemoveUnderlineOnEntry(MauiAppBuilder mauiApp)
+		{
+			// By default we get an ugly underline on the Text Entry controls. This code removves it
+			Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+			{
+#if ANDROID
+        handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+        handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+
+#if IOS || MACCATALYST
+				handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+				handler.PlatformView.Layer.BorderWidth = 0;
+#endif
+			});
+
+			Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+			{
+#if ANDROID
+        handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+        handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+
+#if IOS || MACCATALYST
+				handler.PlatformView.Layer.BorderWidth = 0;
+#endif
+			});
+		}
+	}	
 }

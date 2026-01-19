@@ -37,6 +37,8 @@ namespace Noter.ViewModels
 		public ICommand EditNoteCommand { get; }
 		public ICommand DeleteNoteCommand { get; }
 
+		public ICommand OptionsCommand { get; }
+
 		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase)
 		{
 			_viewNotesUseCase = viewNotesUseCase;
@@ -46,6 +48,7 @@ namespace Noter.ViewModels
 			OpenNoteCommand = new Command<Note>(async note => await NavigateToViewNotePage(note));
 			EditNoteCommand =new Command<Note>(async note => await NavigateToEditNotePage(note));
 			DeleteNoteCommand = new Command<Note>(async note => await DeleteNote(note));
+			OptionsCommand = new Command(async () => await Options());
 		}
 
 		public ObservableCollection<Note> Notes
@@ -67,6 +70,11 @@ namespace Noter.ViewModels
 		private async Task NavigateToEditNotePage(Note selectedNote)
 		{
 			await Shell.Current.GoToAsync($"//AddEditNotePage?noteId={selectedNote.NoteId}");
+		}
+
+		private async Task Options()
+		{
+			throw new NotImplementedException();
 		}
 
 		private async Task DeleteNote(Note noteToDelete)
