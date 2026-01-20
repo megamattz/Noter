@@ -88,7 +88,7 @@ namespace Noter.ViewModels
 				return;
 			}
 
-			bool confirmed = await currentPage.DisplayAlertAsync(
+			bool confirmed = await currentPage.DisplayAlert(
 				"Confirm Delete",
 				$"Delete \"{noteToDelete.NoteTitle}\"? This cannot be undone.",
 				"Delete",   
@@ -101,7 +101,7 @@ namespace Noter.ViewModels
 
 				if (!success)
 				{
-					await currentPage.DisplayAlertAsync(
+					await currentPage.DisplayAlert(
 						 "Error",
 						 "Failed to delete the note. Please try again.",
 						 "OK");

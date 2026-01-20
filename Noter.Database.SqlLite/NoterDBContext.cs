@@ -7,7 +7,7 @@ namespace Noter.Database.SqlLite
 	{
 		public DbSet<Note> Notes => Set<Note>();
 
-		public string DbPath { get; }
+		public string DbPath { get; } = "";
 
 		public NoterDBContext(DbContextOptions<NoterDBContext> options) : base(options)
 		{

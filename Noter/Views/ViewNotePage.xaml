@@ -34,7 +34,8 @@
 			<Label Text="Note Text" />
 			<Editor
 				Text="{Binding Note.NoteText}"
-				IsReadOnly="True"/>
+				IsReadOnly="True"
+				VerticalOptions="FillAndExpand"/>
 		</StackLayout>
 
 		<Grid
