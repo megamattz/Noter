@@ -12,7 +12,6 @@
 	<Color x:Key="EditableTextBorderColor">#000000</Color>
 	<x:Double x:Key="EditableTextBorderThickness">1</x:Double>
 	<Thickness x:Key="EditableTextBorderPadding">2,2,2,2</Thickness>
-	<Thickness x:Key="EditorGridPadding">10,10,10,10</Thickness>
 	
 	<!--Empty State-->
 	<Color x:Key="EmptyStateColor">#3b3b3b</Color>
