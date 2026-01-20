@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CommunityToolkit.Maui;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Noter.Database.SqlLite;
 using Noter.UseCases;
@@ -16,6 +17,7 @@ namespace Noter
 			MauiAppBuilder builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+				.UseMauiCommunityToolkit()  
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

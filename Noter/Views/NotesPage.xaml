@@ -22,7 +22,6 @@
 			ItemsSource="{Binding Notes}"
 			BindingContext="{Binding .}" 
 			Grid.Row="0"
-			VerticalOptions="FillAndExpand"
 			SelectionMode="None"
 			Grid.Column="0">
 			<CollectionView.ItemTemplate>
@@ -69,8 +68,7 @@
 				<Label
 					TextColor="{StaticResource EmptyStateColor}"
 					Padding="{StaticResource EmptyStatePadding}"
-					FontSize="{StaticResource EmptyStateFontSize}"
-					HorizontalOptions="CenterAndExpand"
+					FontSize="{StaticResource EmptyStateFontSize}"					
 					Text="No Notes have been added yet. Press the Add button to add your first note.">
 				</Label>
 			</CollectionView.EmptyView>

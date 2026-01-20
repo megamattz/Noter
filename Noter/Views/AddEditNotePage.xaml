@@ -33,25 +33,32 @@
 			
 		</StackLayout>
 
-		<StackLayout
+
+		<Grid
 			Grid.Row="1"
-			Padding="10"
-			Grid.Column="0"
-			VerticalOptions="FillAndExpand">
+			Padding="{StaticResource EditorGridPadding}">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>	
 			
-			<Label Text="Note Text" />
+			<Label Text="Note Text"
+				   Grid.Row="0"
+				Margin="0,0,0,8"/>
 
 			<Border
+				Grid.Row="1"
 				Stroke="{StaticResource EditableTextBorderColor}"
 				Padding="{StaticResource EditableTextBorderPadding}"
-				VerticalOptions="FillAndExpand"
 				StrokeThickness="{StaticResource EditableTextBorderThickness}">
-			
-			<Editor
-				Text="{Binding NoteText}"
-				VerticalOptions="FillAndExpand"/>
+
+				<Editor
+					Margin="{StaticResource EditableTextBorderPadding}"
+					Text="{Binding NoteText}"
+					/>
 			</Border>
-		</StackLayout>
+		</Grid>
 
 		<Grid
 			Grid.Row="2"
