@@ -4,6 +4,7 @@
 	{
 		General = 0, 
 		Starred = 1, 
-		Tick = 2		
+		Tick = 2,
+		Game = 3
 	}
 }
