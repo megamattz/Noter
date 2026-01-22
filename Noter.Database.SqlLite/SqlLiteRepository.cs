@@ -25,6 +25,7 @@ namespace Noter.Database.SqlLite
 			{
 				NoteText = newNote.NoteText,
 				NoteTitle = newNote.NoteTitle,
+				NoteCategory = newNote.NoteCategory,
 				NoteModifiedDate = DateTimeOffset.Now,
 				NoteCreationDate = DateTimeOffset.Now,
 			});
@@ -50,6 +51,7 @@ namespace Noter.Database.SqlLite
 			note.NoteText = updatedNote.NoteText;
 			note.NoteTitle = updatedNote.NoteTitle;
 			note.NoteModifiedDate = DateTimeOffset.Now;
+			note.NoteCategory = updatedNote.NoteCategory;
 
 			int recordsAdded = await _dbContext.SaveChangesAsync();
 

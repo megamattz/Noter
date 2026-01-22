@@ -22,6 +22,7 @@ namespace Noter.ViewModels
 		private string _noteText = "";
 		private string? _noteIdQueryParam;
 		private int? _editingNoteId = null;
+		private NoteCategories _noteCategory = NoteCategories.General;
 
 
 		public string NoteTitle
@@ -46,6 +47,19 @@ namespace Noter.ViewModels
 			set
 			{
 				_noteText = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public NoteCategories Category
+		{
+			get
+			{ 
+				return _noteCategory; 
+			}
+			set
+			{
+				_noteCategory = value;
 				OnPropertyChanged();
 			}
 		}
@@ -116,6 +130,7 @@ namespace Noter.ViewModels
 				{
 					NoteTitle = _noteTitle,
 					NoteText = _noteText,
+					NoteCategory = _noteCategory,
 				};
 
 				await _addNoteUseCase.ExecuteAsync(note);
@@ -127,6 +142,7 @@ namespace Noter.ViewModels
 					NoteTitle = _noteTitle,
 					NoteText = _noteText,
 					NoteId = _editingNoteId.Value,
+					NoteCategory = _noteCategory
 				};
 
 				await _editNoteUseCase.ExecuteAsync(updatedNote);
