@@ -7,8 +7,10 @@
              Title="ViewNotePage">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="70" />
+			<RowDefinition Height="60" />
 			<RowDefinition Height="120" />
+			<RowDefinition Height="50" />
+			<RowDefinition Height="50" />
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="80" />
 		</Grid.RowDefinitions>
@@ -40,11 +42,45 @@
 				Source="{Binding Note.NoteCategory, Converter={StaticResource CategoryConverter}}"/>
 		</StackLayout>
 		
+		<!--Note Created-->
+		<Grid
+			Grid.Row="2"
+			Padding="10, 0, 10, 0"
+			Grid.Column="0">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+			</Grid.RowDefinitions>
+
+			<Label 
+				Text="Date Created" 
+				Grid.Row="0"
+
+				VerticalOptions="End"/>
+			<Entry
+				Grid.Row="1"
+				VerticalOptions="Start"
+				Text="{Binding Note.NoteCreationDate, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
+				IsReadOnly="True"/>
+		</Grid>
+
+		<!--Note Updated-->
+		<StackLayout
+			Grid.Row="3"
+			Padding="10"
+			Grid.Column="0">
+
+			<Label Text="Date Last Updated" />
+			<Entry
+				Text="{Binding Note.NoteModifiedDate}, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
+				IsReadOnly="True"/>
+		</StackLayout>
 
 		<!--Note Text-->
 
 		<StackLayout
-			Grid.Row="2"
+			Grid.Row="4"
 			Padding="10"
 			Grid.Column="0">			
 			<Label Text="Note Text" />
@@ -55,7 +91,7 @@
 		</StackLayout>
 
 		<Grid
-			Grid.Row="3"
+			Grid.Row="5"
 			Grid.Column="0"
 			ColumnSpacing="10"
 			Padding="10,5,10,5">
@@ -78,6 +114,8 @@
 			<Button
 				x:Name="btnCancel"
 				Text="Edit"
+				Command="{Binding EditNoteCommand}"
+				CommandParameter="{Binding Note}"
 				Grid.Row="0"
 				Grid.Column="1"/>
 		</Grid>

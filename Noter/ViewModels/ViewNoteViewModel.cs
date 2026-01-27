@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Noter.CoreBusiness;
+using Noter.Enums;
 using Noter.UseCases.UseCaseInterfaces;
 
 namespace Noter.ViewModels
@@ -12,8 +13,10 @@ namespace Noter.ViewModels
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public ICommand BackCommand { get; }
+		public ICommand EditNoteCommand { get; }
 
 		private readonly IViewNoteUseCase _viewNoteUseCase;
+
 		private string? _noteIdQueryParam;
 
 		private Note? _note;
@@ -59,6 +62,7 @@ namespace Noter.ViewModels
 		{
 			_viewNoteUseCase = viewNoteUseCase;
 			BackCommand = new Command(async () => await NavigateToViewNotePage());
+			EditNoteCommand = new Command<Note>(async note => await NavigateToEditNotePage(note));
 		}
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -75,5 +79,12 @@ namespace Noter.ViewModels
 		{
 			await Shell.Current.GoToAsync($"//NotesPage");			
 		}
+
+		private async Task NavigateToEditNotePage(Note viewedNote)
+		{
+			await Shell.Current.GoToAsync($"//AddEditNotePage?noteId={viewedNote.NoteId}&sourcePage={SourcePage.ViewNotePage.ToString()}");
+		}
+
+
 	}
 }

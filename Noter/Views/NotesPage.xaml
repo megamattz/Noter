@@ -48,16 +48,37 @@
 						<Border 
 							StrokeThickness="1"
 							Padding="12,8">
-							<VerticalStackLayout>
-								<Label Text="{Binding NoteTitle}" />
+
+							<Grid>
+
+								<Grid.RowDefinitions>
+									<RowDefinition Height="auto" />
+								</Grid.RowDefinitions>
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="64" />
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+
+								<Image
+									HorizontalOptions="Start"
+									Source="{Binding NoteCategory, Converter={StaticResource CategoryConverter}}"/>
+
+								<VerticalStackLayout 
+									Padding="10"
+									Grid.Column="2">
+								
+									<Label Text="{Binding NoteTitle}" />
 								<Label Text="{Binding NoteText}" />
 							</VerticalStackLayout>
 
-							<Border.GestureRecognizers>
+							<Grid.GestureRecognizers>
 								<TapGestureRecognizer 
 										Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.OpenNoteCommand}"
 										CommandParameter="{Binding .}" />
-							</Border.GestureRecognizers>
+							</Grid.GestureRecognizers>
+
+								</Grid>
 						</Border>
 
 					</SwipeView>

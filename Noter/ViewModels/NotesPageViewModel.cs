@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Noter.CoreBusiness;
+using Noter.Enums;
 using Noter.UseCases.UseCaseInterfaces;
 
 namespace Noter.ViewModels
@@ -64,12 +65,12 @@ namespace Noter.ViewModels
 		
 		private async Task NavigateToAddNotePage()
 		{
-			await Shell.Current.GoToAsync("//AddEditNotePage");
+			await Shell.Current.GoToAsync($"//AddEditNotePage?sourcePage={SourcePage.ListPage.ToString()}");
 		}
 
 		private async Task NavigateToEditNotePage(Note selectedNote)
 		{
-			await Shell.Current.GoToAsync($"//AddEditNotePage?noteId={selectedNote.NoteId}");
+			await Shell.Current.GoToAsync($"//AddEditNotePage?noteId={selectedNote.NoteId}&sourcePage={SourcePage.ListPage.ToString()}");
 		}
 
 		private async Task Options()

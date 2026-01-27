@@ -24,7 +24,9 @@ namespace Noter
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-			RemoveUnderlineOnEntry(builder);
+			RemoveUnderlineOnEntry();
+			RemoveAutomaticPaddingForEditor();
+			RemoveAutomaticPadding();
 
 #if DEBUG
 			builder.Logging.AddDebug();
@@ -73,7 +75,42 @@ namespace Noter
 			return builder.Build();
 		}
 
-		private static void RemoveUnderlineOnEntry(MauiAppBuilder mauiApp)
+		private static void RemoveAutomaticPadding()
+		{
+			// Android automatically puts in some padding which messes up the layout. 
+			// Remove it so I have more control
+			Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoPadding", (handler, view) =>
+			{
+#if ANDROID
+				if (handler.PlatformView is Android.Widget.EditText editText)
+				{
+					editText.SetPadding(0, 0, 0, 0);
+					editText.Gravity = Android.Views.GravityFlags.Start | Android.Views.GravityFlags.Top;
+					editText.CompoundDrawablePadding = 0;
+				}
+#endif
+			});
+		}
+
+		private static void RemoveAutomaticPaddingForEditor()
+		{
+			Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("NoPaddingEditor", (handler, view) =>
+			{
+#if ANDROID
+				if (handler.PlatformView is Android.Widget.EditText editText)
+				{
+					editText.SetPadding(0, 0, 0, 0);
+					editText.Gravity = Android.Views.GravityFlags.Start | Android.Views.GravityFlags.Top;
+					editText.CompoundDrawablePadding = 0;
+
+					// Optional but often helpful for Editors (reduces extra top "air" from font metrics)
+					editText.SetIncludeFontPadding(false);
+				}
+#endif
+			});
+		}
+
+		private static void RemoveUnderlineOnEntry()
 		{
 			// By default we get an ugly underline on the Text Entry controls. This code removves it
 			Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>

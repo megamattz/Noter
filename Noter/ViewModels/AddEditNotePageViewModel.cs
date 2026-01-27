@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
 using Noter.CoreBusiness;
+using Noter.Enums;
 using Noter.UseCases.UseCaseInterfaces;
 
 namespace Noter.ViewModels
 {
 	[QueryProperty(nameof(NoteIdQueryParam), "noteId")]
+	[QueryProperty(nameof(SourcePageAsString), "sourcePage")]
 	public class AddEditNotePageViewModel : INotifyPropertyChanged
 	{
 		
@@ -21,6 +24,7 @@ namespace Noter.ViewModels
 		private string _noteTitle = "";
 		private string _noteText = "";
 		private string? _noteIdQueryParam;
+		private SourcePage? _sourcePage;
 		private int? _editingNoteId = null;
 		private NoteCategories _noteCategory = NoteCategories.General;
 
@@ -61,6 +65,38 @@ namespace Noter.ViewModels
 			{
 				_noteCategory = value;
 				OnPropertyChanged();
+			}
+		}
+
+		public SourcePage? SourcePage
+		{
+			get
+			{
+				return _sourcePage;
+			}
+		}
+
+		public string? SourcePageAsString
+		{
+			get
+			{
+				return _sourcePage.ToString(); ;
+			}
+
+			set
+			{
+				if (Enum.TryParse<SourcePage>(value, ignoreCase: true, out var parsed))
+				{
+					_sourcePage = parsed;
+				}
+				else
+				{
+					_sourcePage = null;
+					Console.WriteLine($"Unkown Source Page {value}");
+				}
+
+				OnPropertyChanged(nameof(SourcePage));
+				OnPropertyChanged(nameof(SourcePageAsString));
 			}
 		}
 
@@ -148,8 +184,15 @@ namespace Noter.ViewModels
 				await _editNoteUseCase.ExecuteAsync(updatedNote);
 			}
 
-			// Navigate back to the notes list
-			await Shell.Current.GoToAsync("//NotesPage");
+			// Navigate back to the notes list or the view note page if thats where we came from
+			if (_sourcePage == Enums.SourcePage.ViewNotePage && _editingNoteId != null)
+			{
+				await Shell.Current.GoToAsync($"//ViewNotePage?noteId={_editingNoteId}");
+			}
+			else
+			{
+				await Shell.Current.GoToAsync("//NotesPage");
+			}
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
