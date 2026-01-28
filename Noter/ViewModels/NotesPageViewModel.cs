@@ -15,9 +15,13 @@ namespace Noter.ViewModels
 		private ObservableCollection<Note> _notes = new ObservableCollection<Note>();
 		private Note? _selectedNote;
 
+		private string _searchTerm = "";
+
 
 		private readonly IViewNotesUseCase _viewNotesUseCase;
 		private readonly IDeleteNoteUseCase _deleteNoteUseCase;
+
+		private readonly SemaphoreSlim _dbSemaphore = new SemaphoreSlim(1, 1);
 
 		public Note? SelectedNote
 		{
@@ -32,6 +36,19 @@ namespace Noter.ViewModels
 			}
 		}
 
+		public string SearchTerm
+		{
+			get
+			{
+				return _searchTerm;
+			}
+			set
+			{
+				_searchTerm = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public ICommand AddNewNoteCommand { get; }
 		public ICommand OpenNoteCommand { get; }
 
@@ -39,6 +56,8 @@ namespace Noter.ViewModels
 		public ICommand DeleteNoteCommand { get; }
 
 		public ICommand OptionsCommand { get; }
+
+		public ICommand SearchCommand { get; }
 
 		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase)
 		{
@@ -50,6 +69,7 @@ namespace Noter.ViewModels
 			EditNoteCommand =new Command<Note>(async note => await NavigateToEditNotePage(note));
 			DeleteNoteCommand = new Command<Note>(async note => await DeleteNote(note));
 			OptionsCommand = new Command(async () => await Options());
+			SearchCommand = new Command<string>(async searchTerm => await LoadNotesList(searchTerm));
 		}
 
 		public ObservableCollection<Note> Notes
@@ -121,10 +141,22 @@ namespace Noter.ViewModels
 			}
 		}
 
-		public async Task LoadNotesAsync()
+		public async Task LoadNotesList(string searchTerm = "")
 		{
-			List<Note> notes = await _viewNotesUseCase.ExecuteAsync();
-			Notes = new ObservableCollection<Note>(notes);
+			// Prevent concurrency issues with the DB as it only supports one operation at a time
+			await _dbSemaphore.WaitAsync();
+
+			try
+			{
+				List<Note> notes = await _viewNotesUseCase.ExecuteAsync(searchTerm);
+				Notes = new ObservableCollection<Note>(notes);
+			}
+			finally
+			{
+				{
+					_dbSemaphore.Release();
+				}
+			}			
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

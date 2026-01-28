@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"			
              x:Class="Noter.Views.NotesPage"
 			 xmlns:vm="clr-namespace:Noter.ViewModels"  
-			 x:DataType="vm:NotesPageViewModel"			   
+			 x:DataType="vm:NotesPageViewModel"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 xmlns:core="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
              Title="Noter">
 	<Grid>
 		
 		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="80" />
 		</Grid.RowDefinitions>
@@ -17,11 +19,29 @@
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
+		<SearchBar 
+			Grid.Row="0"
+			Grid.Column="0"
+			Text="{Binding SearchTerm}"
+			SearchCommand="{Binding SearchCommand}"
+			SearchCommandParameter="{Binding SearchTerm}"
+			VerticalOptions="Center"
+			Margin="10">
+
+			<SearchBar.Behaviors>
+				<toolkit:UserStoppedTypingBehavior 
+					StoppedTypingTimeThreshold="300"
+					Command="{Binding SearchCommand}"
+					CommandParameter="{Binding SearchTerm}"/>
+			</SearchBar.Behaviors>
+			
+		</SearchBar>
+
 		<CollectionView 
 			x:Name="notesCollection"
 			ItemsSource="{Binding Notes}"
 			BindingContext="{Binding .}" 
-			Grid.Row="0"
+			Grid.Row="1"
 			VerticalOptions="FillAndExpand"
 			SelectionMode="None"
 			Grid.Column="0">
@@ -92,14 +112,14 @@
 					Padding="{StaticResource EmptyStatePadding}"
 					FontSize="{StaticResource EmptyStateFontSize}"
 					HorizontalOptions="CenterAndExpand"
-					Text="No Notes have been added yet. Press the Add button to add your first note.">
+					Text="No Notes found that match the search criteria.">
 				</Label>
 			</CollectionView.EmptyView>
 		</CollectionView>
 
 		<Grid
 			Grid.Column="0"
-			Grid.Row="1"
+			Grid.Row="2"
 			ColumnSpacing="10"
 			Padding="10,5,10,5">
 
@@ -120,7 +140,7 @@
 
 			<Button
 				x:Name="btnOptions"
-				Text="Options"				
+				Text="Options"
 				Grid.Row="0"
 				Grid.Column="1"/>
 		</Grid>

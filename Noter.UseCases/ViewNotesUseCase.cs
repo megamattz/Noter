@@ -13,9 +13,9 @@ namespace Noter.UseCases
 			_notesDataStoreRepository = notesDataStoreRepository;
 		}
 
-		public async Task<List<Note>> ExecuteAsync()
+		public async Task<List<Note>> ExecuteAsync(string searchTerm)
 		{
-			return await _notesDataStoreRepository.GetNotesAsync();
+			return await _notesDataStoreRepository.GetNotesAsync(searchTerm);
 		}
 	}
 }

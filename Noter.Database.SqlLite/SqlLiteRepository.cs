@@ -61,10 +61,21 @@ namespace Noter.Database.SqlLite
 		/// <summary>
 		/// Returns a list of notes
 		/// </summary>
+		/// <param name="searchTerm">search term filter. If empty no filter is applied</param>
 		/// <returns></returns>
-		public async Task<List<Note>> GetNotesAsync()
+		public async Task<List<Note>> GetNotesAsync(string searchTerm)
 		{
-			return await _dbContext.Notes.ToListAsync();
+			IQueryable<Note> query = _dbContext.Notes;
+			string searchTermLowerCase = searchTerm.Trim().ToLowerInvariant();
+
+			if (!string.IsNullOrEmpty(searchTermLowerCase))
+			{
+				query = query.Where(q => q.NoteText.ToLower().Contains(searchTermLowerCase) ||
+								q.NoteTitle.ToLower().Contains(searchTermLowerCase));
+
+			}
+
+			return await query.OrderByDescending(q => q.NoteId).ToListAsync();
 		}
 
 		public async Task<Note> GetNoteByIdAsync(int nodeId)

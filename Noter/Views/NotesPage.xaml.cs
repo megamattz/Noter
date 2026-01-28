@@ -24,6 +24,6 @@ public partial class NotesPage : ContentPage
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-		await _viewModel.LoadNotesAsync();
+		await _viewModel.LoadNotesList();
 	}
 }
