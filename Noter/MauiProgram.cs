@@ -54,6 +54,7 @@ namespace Noter
 			builder.Services.AddSingleton<IViewNoteUseCase, ViewNoteUseCase>();
 			builder.Services.AddSingleton<IEditNoteUseCase, EditNoteUseCase>();
 			builder.Services.AddSingleton<IDeleteNoteUseCase, DeleteNoteUseCase>();
+			builder.Services.AddSingleton<ICountNotesUseCase, CountNotesUseCase>();
 
 			//-----------------------------
 			// Navigation Setup //

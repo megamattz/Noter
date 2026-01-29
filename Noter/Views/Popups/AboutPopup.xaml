@@ -3,54 +3,57 @@
 				 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 				xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 				x:Class="Noter.Views.Popups.AboutPopup"
+			    xmlns:vm="clr-namespace:Noter.ViewModels"
+			    x:DataType="vm:AboutPopupViewModel"
 				Color="Transparent"
-			    CanBeDismissedByTappingOutsideOfPopup="True"
-			    Size="Medium">
+			    Size="Large"
+			    HorizontalOptions="Fill"
+			    CanBeDismissedByTappingOutsideOfPopup="True">
 
 
-	<VerticalStackLayout 
-		Padding="10">
+	<VerticalStackLayout Padding="10">
 	
-	<Border
-		Margin="10"
-		BackgroundColor="White">
-		<Grid>
+
+		<Grid 
+			BackgroundColor="White" 
+			Padding="10"
+			HorizontalOptions="FillAndExpand">
+			
 			<Grid.RowDefinitions>
 				<RowDefinition Height="auto"/>
-				<RowDefinition Height="*"/>
+				<RowDefinition Height="auto"/>
 			</Grid.RowDefinitions>
 
-			<Button Grid.Row="0"
-				Text="✕" 
-                BorderWidth="0"
-                Padding="10"
-				BackgroundColor="Transparent"
-				TextColor="DarkGrey"
-				Command="{Binding ClosePopup}"
-				FontAttributes="Bold"
-                HorizontalOptions="End"
-                VerticalOptions="Start" />
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
 
 			<VerticalStackLayout 
 				Padding="10"
+				HorizontalOptions="FillAndExpand"
 				Grid.Row="0">
-				<Label Text="Welcome to Noter!"
+				<Label Text="Noter"
                    FontSize="Title"
                    HorizontalOptions="Center" />
 
-				<Label Text="{Binding ApplicationVersion}"
-                   FontSize="Medium"
-                   HorizontalOptions="Center" />
+					<HorizontalStackLayout>
+						<Label Text="Noter Version: " />
+						<Label Text="{Binding ApplicationVersion}"/>
+					</HorizontalStackLayout>
 
-				<Label Text="A simple .NET MAUI Note taking app. Notes are stored locally on the device."
-                   FontSize="Small"
-                   HorizontalOptions="Center" />
+					<HorizontalStackLayout>
+						<Label Text="Notes Saved: " />
+						<Label Text="{Binding TotalNoteCount}"/>
+					</HorizontalStackLayout>
+				</VerticalStackLayout>
 
-			</VerticalStackLayout>
-		</Grid>
-
-	</Border>
+				<Button
+					Grid.Row="1"
+					Text="Close"
+					Command="{Binding ClosePopup}" />
+			</Grid>
 
 	</VerticalStackLayout>
+
 
 </toolkit:Popup>

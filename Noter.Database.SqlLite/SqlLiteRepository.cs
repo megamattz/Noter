@@ -105,5 +105,10 @@ namespace Noter.Database.SqlLite
 
 			return recordsDeleted > 0;
 		}
+
+		public async Task<int> CountNotesAsync()
+		{
+			return await _dbContext.Notes.CountAsync();
+		}
 	}
 }

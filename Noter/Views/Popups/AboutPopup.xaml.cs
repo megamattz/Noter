@@ -7,20 +7,21 @@ public partial class AboutPopup : Popup
 {
 	private readonly AboutPopupViewModel _viewModel;
 
-	public AboutPopup()
+	public AboutPopup(AboutPopupViewModel aboutPopupViewModel)
 	{
 		InitializeComponent();
 
-		_viewModel = new AboutPopupViewModel();
+		_viewModel = aboutPopupViewModel;
 		BindingContext = _viewModel;
 		Opened += AboutPopup_Opened;
 	}
 
-	private void AboutPopup_Opened(object? sender, CommunityToolkit.Maui.Core.PopupOpenedEventArgs e)
+	private async void AboutPopup_Opened(object? sender, CommunityToolkit.Maui.Core.PopupOpenedEventArgs e)
 	{
 		if (_viewModel is AboutPopupViewModel vm)
 		{
 			vm.SetCurrentPopupView(this);
+			await vm.LoadTotalNoteCountAsync();
 		}
 	}	
 }
