@@ -5,6 +5,9 @@ using System.Windows.Input;
 using Noter.CoreBusiness;
 using Noter.Enums;
 using Noter.UseCases.UseCaseInterfaces;
+using CommunityToolkit.Maui.Views;
+using Noter.Views.Popups;
+using CommunityToolkit.Maui.Core;
 
 namespace Noter.ViewModels
 {
@@ -17,9 +20,10 @@ namespace Noter.ViewModels
 
 		private string _searchTerm = "";
 
-
 		private readonly IViewNotesUseCase _viewNotesUseCase;
 		private readonly IDeleteNoteUseCase _deleteNoteUseCase;
+
+		private ContentPage? _currentPage;
 
 		private readonly SemaphoreSlim _dbSemaphore = new SemaphoreSlim(1, 1);
 
@@ -55,9 +59,10 @@ namespace Noter.ViewModels
 		public ICommand EditNoteCommand { get; }
 		public ICommand DeleteNoteCommand { get; }
 
-		public ICommand OptionsCommand { get; }
+		public ICommand ShowAboutCommand { get; }
 
 		public ICommand SearchCommand { get; }
+
 
 		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase)
 		{
@@ -68,7 +73,7 @@ namespace Noter.ViewModels
 			OpenNoteCommand = new Command<Note>(async note => await NavigateToViewNotePage(note));
 			EditNoteCommand =new Command<Note>(async note => await NavigateToEditNotePage(note));
 			DeleteNoteCommand = new Command<Note>(async note => await DeleteNote(note));
-			OptionsCommand = new Command(async () => await Options());
+			ShowAboutCommand = new Command(async () => await ShowAboutPopup());
 			SearchCommand = new Command<string>(async searchTerm => await LoadNotesList(searchTerm));
 		}
 
@@ -82,7 +87,12 @@ namespace Noter.ViewModels
 				SelectedNote = null;
 			}
 		}
-		
+
+		public void SetCurrentPage(ContentPage page)
+		{
+			_currentPage = page ?? throw new ArgumentNullException(nameof(page));
+		}
+
 		private async Task NavigateToAddNotePage()
 		{
 			await Shell.Current.GoToAsync($"//AddEditNotePage?sourcePage={SourcePage.ListPage.ToString()}");
@@ -93,9 +103,13 @@ namespace Noter.ViewModels
 			await Shell.Current.GoToAsync($"//AddEditNotePage?noteId={selectedNote.NoteId}&sourcePage={SourcePage.ListPage.ToString()}");
 		}
 
-		private async Task Options()
+		private async Task ShowAboutPopup()
 		{
-			throw new NotImplementedException();
+			if (_currentPage != null)
+			{
+				Popup popup = new AboutPopup();
+				await _currentPage.ShowPopupAsync(popup);
+			}
 		}
 
 		private async Task DeleteNote(Note noteToDelete)

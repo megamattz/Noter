@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Noter.Database.SqlLite;
@@ -7,6 +8,7 @@ using Noter.UseCases.DatabaseInterfaces;
 using Noter.UseCases.UseCaseInterfaces;
 using Noter.ViewModels;
 using Noter.Views;
+using Noter.Views.Popups;
 
 namespace Noter
 {
@@ -59,6 +61,7 @@ namespace Noter
 			builder.Services.AddSingleton<NotesPage>();
 			builder.Services.AddSingleton<AddEditNotePage>();
 			builder.Services.AddSingleton<ViewNotePage>();
+			builder.Services.AddSingleton<AboutPopup>();
 
 			// ----------------------------
 			// View Model Setup //
@@ -66,6 +69,7 @@ namespace Noter
 			builder.Services.AddSingleton<NotesPageViewModel>();
 			builder.Services.AddSingleton<AddEditNotePageViewModel>();
 			builder.Services.AddSingleton<ViewNoteViewModel>();
+			builder.Services.AddSingleton<AboutPopupViewModel>();
 
 			//-----------------------------
 			// Setup the database migration //

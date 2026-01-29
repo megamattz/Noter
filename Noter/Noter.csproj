@@ -80,6 +80,9 @@
 	  <Compile Update="Views\NotesPage.xaml.cs">
 	    <DependentUpon>NotesPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Popups\AboutPopup.xaml.cs">
+	    <DependentUpon>AboutPopup.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -93,6 +96,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NotesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\AboutPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ViewNotePage.xaml">

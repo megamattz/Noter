@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				x:Class="Noter.Views.Popups.AboutPopup"
+				Color="Transparent"
+			    CanBeDismissedByTappingOutsideOfPopup="True"
+			    Size="Medium">
+
+
+	<VerticalStackLayout 
+		Padding="10">
+	
+	<Border
+		Margin="10"
+		BackgroundColor="White">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Button Grid.Row="0"
+				Text="✕" 
+                BorderWidth="0"
+                Padding="10"
+				BackgroundColor="Transparent"
+				TextColor="DarkGrey"
+				Command="{Binding ClosePopup}"
+				FontAttributes="Bold"
+                HorizontalOptions="End"
+                VerticalOptions="Start" />
+
+			<VerticalStackLayout 
+				Padding="10"
+				Grid.Row="0">
+				<Label Text="Welcome to Noter!"
+                   FontSize="Title"
+                   HorizontalOptions="Center" />
+
+				<Label Text="{Binding ApplicationVersion}"
+                   FontSize="Medium"
+                   HorizontalOptions="Center" />
+
+				<Label Text="A simple .NET MAUI Note taking app. Notes are stored locally on the device."
+                   FontSize="Small"
+                   HorizontalOptions="Center" />
+
+			</VerticalStackLayout>
+		</Grid>
+
+	</Border>
+
+	</VerticalStackLayout>
+
+</toolkit:Popup>

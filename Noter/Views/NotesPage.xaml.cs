@@ -25,5 +25,10 @@ public partial class NotesPage : ContentPage
 	{
 		base.OnAppearing();
 		await _viewModel.LoadNotesList();
+
+		if (BindingContext is NotesPageViewModel vm)
+		{
+			vm.SetCurrentPage(this);
+		}
 	}
 }

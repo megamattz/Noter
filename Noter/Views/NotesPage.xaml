@@ -139,8 +139,8 @@
 				Grid.Column="0"/>
 
 			<Button
-				x:Name="btnOptions"
-				Text="Options"
+				Command="{Binding ShowAboutCommand}"
+				Text="About"
 				Grid.Row="0"
 				Grid.Column="1"/>
 		</Grid>
