@@ -11,6 +11,8 @@
 		
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="80" />
 		</Grid.RowDefinitions>
@@ -18,30 +20,93 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
+		
+		<!--Search Text Filter-->
 
-		<SearchBar 
+
+		<Grid
 			Grid.Row="0"
-			Grid.Column="0"
-			Text="{Binding SearchTerm}"
-			SearchCommand="{Binding SearchCommand}"
-			SearchCommandParameter="{Binding SearchTerm}"
-			VerticalOptions="Center"
-			Margin="10">
+			ColumnSpacing="5"
+			Padding="20">
 
-			<SearchBar.Behaviors>
-				<toolkit:UserStoppedTypingBehavior 
-					StoppedTypingTimeThreshold="300"
-					Command="{Binding SearchCommand}"
-					CommandParameter="{Binding SearchTerm}"/>
-			</SearchBar.Behaviors>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="auto"/>
+			</Grid.ColumnDefinitions>
+
+			<Border 
+				Grid.Column="0"
+				Stroke="Black"
+				VerticalOptions="Center"
+				StrokeThickness="0.5">
+
+				<Grid VerticalOptions="Center" 
+					  HeightRequest="40"
+					  HorizontalOptions="FillAndExpand">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Image	
+						Grid.Column="0"
+						Source="search.png"
+						HeightRequest="28"
+						Margin="3"
+						WidthRequest="28"
+						VerticalOptions="Center"
+						HorizontalOptions="Center"
+						Aspect="AspectFit" />
+
+					<Entry
+						Grid.Column="1"
+						Text="{Binding SearchTerm}"
+						ReturnCommand="{Binding SearchCommand}"
+						Placeholder="Search Notes"
+						PlaceholderColor="Grey"
+						VerticalTextAlignment="Center"
+						HeightRequest="40"
+						ReturnCommandParameter="{Binding SearchTerm}"
+						HorizontalOptions="StartAndExpand"
+						VerticalOptions="CenterAndExpand">
+						<Entry.Behaviors>
+							<toolkit:UserStoppedTypingBehavior 
+								StoppedTypingTimeThreshold="300"
+								Command="{Binding SearchCommand}"
+								CommandParameter="{Binding SearchTerm}"/>
+						</Entry.Behaviors>
+					</Entry>
+				</Grid>
+			</Border>			
 			
-		</SearchBar>
+			<ImageButton
+				x:Name="sortButton"
+				Source="funnel.png"
+				Aspect="AspectFit" 
+				HeightRequest="36"
+				WidthRequest="36"
+				MinimumHeightRequest="36"
+				MinimumWidthRequest="36"
+				Padding="4" 
+				BackgroundColor="#512BD4"
+				BorderWidth="1"
+				CornerRadius="5"
+				VerticalOptions="Center"
+				HorizontalOptions="End"
+				Grid.Column="1"
+				
+				AutomationProperties.Name="Sort and filter notes"
+				AutomationProperties.HelpText="Choose how to sort the list or apply filters to show specific notes"
+				AutomationProperties.IsInAccessibleTree="True"/>
+		</Grid>
+		
+		
+		<!--Note List-->
 
 		<CollectionView 
 			x:Name="notesCollection"
 			ItemsSource="{Binding Notes}"
 			BindingContext="{Binding .}" 
-			Grid.Row="1"
+			Grid.Row="3"
 			VerticalOptions="FillAndExpand"
 			SelectionMode="None"
 			Grid.Column="0">
@@ -116,10 +181,12 @@
 				</Label>
 			</CollectionView.EmptyView>
 		</CollectionView>
+		
+		<!--Action Buttons-->
 
 		<Grid
 			Grid.Column="0"
-			Grid.Row="2"
+			Grid.Row="4"
 			ColumnSpacing="10"
 			Padding="10,5,10,5">
 

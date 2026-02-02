@@ -30,8 +30,9 @@
 			<Border
 				Stroke="{StaticResource EditableTextBorderColor}"
 				Padding="{StaticResource EditableTextBorderPadding}"
+				HeightRequest="40"
 				StrokeThickness="{StaticResource EditableTextBorderThickness}">
-				<Entry
+				<Entry					
 					Text="{Binding NoteTitle}"/>
 			</Border>			
 		</StackLayout>

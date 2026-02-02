@@ -26,9 +26,13 @@ namespace Noter
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+			// These are needed becuase .NET Maiu has some default behaviours that cannot be changed via xaml directly
+			// and interfere with how I want the layout to look. 
 			RemoveUnderlineOnEntry();
 			RemoveAutomaticPaddingForEditor();
 			RemoveAutomaticPadding();
+			CenterEntryTextVertically();
+
 
 #if DEBUG
 			builder.Logging.AddDebug();
@@ -78,6 +82,21 @@ namespace Noter
 			builder.Services.AddSingleton<DatabaseMigrationService>();
 
 			return builder.Build();
+		}
+
+		private static void CenterEntryTextVertically()
+		{
+#if ANDROID
+    Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("CenterVertically", (handler, view) =>
+    {
+        if (handler.PlatformView is Android.Widget.EditText editText)
+        {
+            editText.Gravity = Android.Views.GravityFlags.CenterVertical | Android.Views.GravityFlags.Start;
+            // GravityFlags.Start keeps text left-aligned (normal behavior)
+            // If you want the text also horizontally centered: use GravityFlags.Center instead
+        }
+    });
+#endif
 		}
 
 		private static void RemoveAutomaticPadding()
