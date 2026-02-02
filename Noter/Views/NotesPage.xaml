@@ -76,30 +76,22 @@
 						</Entry.Behaviors>
 					</Entry>
 				</Grid>
-			</Border>			
-			
+			</Border>
+
 			<ImageButton
 				x:Name="sortButton"
 				Source="funnel.png"
-				Aspect="AspectFit" 
 				HeightRequest="36"
 				WidthRequest="36"
-				MinimumHeightRequest="36"
-				MinimumWidthRequest="36"
-				Padding="4" 
 				BackgroundColor="#512BD4"
 				BorderWidth="1"
 				CornerRadius="5"
 				VerticalOptions="Center"
 				HorizontalOptions="End"
-				Grid.Column="1"
-				
-				AutomationProperties.Name="Sort and filter notes"
-				AutomationProperties.HelpText="Choose how to sort the list or apply filters to show specific notes"
-				AutomationProperties.IsInAccessibleTree="True"/>
+				Grid.Column="1"				
+				AutomationProperties.Name="Sort and filter notes"/>
 		</Grid>
-		
-		
+
 		<!--Note List-->
 
 		<CollectionView 
