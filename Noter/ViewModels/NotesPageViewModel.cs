@@ -23,6 +23,7 @@ namespace Noter.ViewModels
 		private readonly IViewNotesUseCase _viewNotesUseCase;
 		private readonly IDeleteNoteUseCase _deleteNoteUseCase;
 		private readonly AboutPopupViewModel _aboutPopupViewModel;
+		private readonly FilterAndSortViewModel _filterAndSortViewModel;
 
 		private ContentPage? _currentPage;
 
@@ -62,20 +63,25 @@ namespace Noter.ViewModels
 
 		public ICommand ShowAboutCommand { get; }
 
+		public ICommand ShowFilterAndSortCommand { get; }
+
 		public ICommand SearchCommand { get; }
 
 
-		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase, AboutPopupViewModel aboutPopupViewModel)
+		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase,
+			AboutPopupViewModel aboutPopupViewModel, FilterAndSortViewModel filterAndSortViewModel)
 		{
 			_viewNotesUseCase = viewNotesUseCase;
 			_deleteNoteUseCase = deleteNoteUseCase;
 			_aboutPopupViewModel = aboutPopupViewModel;
+			_filterAndSortViewModel = filterAndSortViewModel;
 
 			AddNewNoteCommand = new Command(async () => await NavigateToAddNotePage());
 			OpenNoteCommand = new Command<Note>(async note => await NavigateToViewNotePage(note));
 			EditNoteCommand =new Command<Note>(async note => await NavigateToEditNotePage(note));
 			DeleteNoteCommand = new Command<Note>(async note => await DeleteNote(note));
 			ShowAboutCommand = new Command(async () => await ShowAboutPopup());
+			ShowFilterAndSortCommand = new Command(async () => await ShowFilterAndSortPopup());
 			SearchCommand = new Command<string>(async searchTerm => await LoadNotesList(searchTerm));
 		}
 
@@ -110,6 +116,15 @@ namespace Noter.ViewModels
 			if (_currentPage != null)
 			{
 				Popup popup = new AboutPopup(_aboutPopupViewModel);
+				await _currentPage.ShowPopupAsync(popup);
+			}
+		}
+
+		private async Task ShowFilterAndSortPopup()
+		{
+			if (_currentPage != null)
+			{
+				Popup popup = new FilterAndSortPopup(_filterAndSortViewModel);
 				await _currentPage.ShowPopupAsync(popup);
 			}
 		}

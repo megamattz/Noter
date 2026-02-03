@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				x:Class="Noter.Views.Popups.FilterAndSortPopup"
+			    xmlns:vm="clr-namespace:Noter.ViewModels"
+			    x:DataType="vm:FilterAndSortViewModel"
+				Color="Transparent"
+			    Size="Large"
+			    HorizontalOptions="Fill"
+			    CanBeDismissedByTappingOutsideOfPopup="True">
+
+	<VerticalStackLayout 
+		Padding="10">
+
+		<Grid
+		BackgroundColor="White">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+			</Grid.RowDefinitions>
+
+
+			<!--Filter Options-->
+			<Label
+				Grid.Row="0"
+				Padding="10"
+				Text="Filter Options"/>
+
+			<Grid
+				Grid.Row="1">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<VerticalStackLayout Spacing="4" HorizontalOptions="Center" Grid.Column="0">
+					<Image Source="notepad.png" WidthRequest="40" HeightRequest="40" />
+					
+					<HorizontalStackLayout>
+						<CheckBox
+							Grid.Column="0"
+							Margin="0"
+							VerticalOptions="Center"/>
+						<Label 
+							Grid.Column="1"
+							Text="General"
+							HorizontalOptions="Start"
+							VerticalOptions="Center"
+							VerticalTextAlignment="Center"/>
+					</HorizontalStackLayout>
+					
+				</VerticalStackLayout>
+
+				<VerticalStackLayout Spacing="4" HorizontalOptions="Center" Grid.Column="1">
+					<Image Source="star.png" WidthRequest="40" HeightRequest="40" />
+
+					<HorizontalStackLayout>
+						<CheckBox
+							VerticalOptions="Center"/>
+						<Label 
+							Text="Starred"
+							VerticalOptions="Center" 
+							VerticalTextAlignment="Center"/>
+					</HorizontalStackLayout>
+				</VerticalStackLayout>
+
+				<VerticalStackLayout Spacing="4" HorizontalOptions="Center" Grid.Column="2">
+					<Image Source="tick.png" WidthRequest="40" HeightRequest="40" />
+
+					<HorizontalStackLayout>
+						<CheckBox
+							VerticalOptions="Center"/>
+						<Label Text="List"
+							   VerticalOptions="Center" 
+								VerticalTextAlignment="Center"/>
+					</HorizontalStackLayout>
+				</VerticalStackLayout>
+
+				<VerticalStackLayout Spacing="4" HorizontalOptions="Center" Grid.Column="3">
+					<Image Source="game.png" WidthRequest="40" HeightRequest="40" />
+
+					<HorizontalStackLayout>
+						<CheckBox
+							VerticalOptions="Center"/>
+						<Label 
+							Text="Fun"
+							VerticalOptions="Center" 
+							VerticalTextAlignment="Center"/>
+					</HorizontalStackLayout>					
+				</VerticalStackLayout>
+
+			</Grid>
+
+			<!--Sort By Options-->
+			<Label 
+				Grid.Row="2"
+				Padding="10"
+				Text="Sort By"/>
+
+			<Grid
+				Grid.Row="3">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<VerticalStackLayout
+
+					VerticalOptions="Center"
+					Grid.Column="0"
+					Spacing="0"
+					RadioButtonGroup.GroupName="OrderBy">
+
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="32"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<RadioButton
+							Grid.Column="0"
+							Padding="0"
+							Margin="0"
+							HorizontalOptions="End"/>
+
+						<Label 
+							Grid.Column="1"
+							Text="Date Modified" 
+							HorizontalOptions="Start"
+							VerticalOptions="Center" 
+							VerticalTextAlignment="Center"/>
+					</Grid>
+
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="32"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						
+						<RadioButton 
+							Grid.Column="0"
+							Padding="0"
+							Margin="0"
+							HorizontalOptions="End"/>
+						<Label 
+							Grid.Column="1"
+							Text="Date Created"
+							HorizontalOptions="Start"
+							VerticalOptions="Center" 
+							VerticalTextAlignment="Center"/>
+					</Grid>
+				</VerticalStackLayout>
+
+				<VerticalStackLayout
+					VerticalOptions="Center"
+					Grid.Column="1"
+					Spacing="0"
+					RadioButtonGroup.GroupName="Direction">
+
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="32"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<RadioButton 	
+							Grid.Column="0"
+							Padding="0"
+							Margin="0"
+							HorizontalOptions="End"/>	
+						<Label 
+							Grid.Column="1"
+							Text="Newset First"
+							HorizontalOptions="Start"
+							VerticalOptions="Center" 
+							VerticalTextAlignment="Center"/>						
+					</Grid>
+
+
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="32"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<RadioButton
+							Grid.Column="0"
+							Padding="0"
+							Margin="0"
+							HorizontalOptions="End"/>
+						<Label
+							Grid.Column="1" 
+							Text="Oldest First"
+							HorizontalOptions="Start"
+							VerticalOptions="Center" 
+							VerticalTextAlignment="Center"/>					
+					</Grid>
+					</VerticalStackLayout>
+			</Grid>			
+			
+			<!--Buttons-->
+			<Grid
+			Grid.Row="5"
+			Grid.Column="0"
+			ColumnSpacing="10"
+			Padding="10,5,10,5">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<Button
+				Text="Save"			
+				Grid.Row="0"
+				Grid.Column="0"/>
+
+				<Button
+				x:Name="btnCancel"
+				Text="Cancel"
+				Command="{Binding ClosePopup}"
+				Grid.Row="0"
+				Grid.Column="1"/>
+			</Grid>
+		</Grid>
+
+	</VerticalStackLayout>
+
+
+</toolkit:Popup>

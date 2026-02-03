@@ -83,6 +83,9 @@
 	  <Compile Update="Views\Popups\AboutPopup.xaml.cs">
 	    <DependentUpon>AboutPopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Popups\FilterAndSortPopup.xaml.cs">
+	    <DependentUpon>FilterAndSortPopup.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -99,6 +102,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\AboutPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\FilterAndSortPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ViewNotePage.xaml">

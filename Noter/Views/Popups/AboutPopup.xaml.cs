@@ -23,5 +23,5 @@ public partial class AboutPopup : Popup
 			vm.SetCurrentPopupView(this);
 			await vm.LoadTotalNoteCountAsync();
 		}
-	}	
+	}
 }

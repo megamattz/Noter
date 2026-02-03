@@ -8,6 +8,7 @@ using Noter.UseCases.DatabaseInterfaces;
 using Noter.UseCases.UseCaseInterfaces;
 using Noter.ViewModels;
 using Noter.Views;
+using Microsoft.Maui.Handlers;
 using Noter.Views.Popups;
 
 namespace Noter
@@ -26,12 +27,14 @@ namespace Noter
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-			// These are needed becuase .NET Maiu has some default behaviours that cannot be changed via xaml directly
+			// These are needed becuase .NET Maiu has some default behaviours and padding that cannot be changed via xaml directly
 			// and interfere with how I want the layout to look. 
 			RemoveUnderlineOnEntry();
 			RemoveAutomaticPaddingForEditor();
 			RemoveAutomaticPadding();
 			CenterEntryTextVertically();
+			RemoveCheckboxPadding();
+			TightenRadioButtonPadding();
 
 
 #if DEBUG
@@ -75,6 +78,7 @@ namespace Noter
 			builder.Services.AddSingleton<AddEditNotePageViewModel>();
 			builder.Services.AddSingleton<ViewNoteViewModel>();
 			builder.Services.AddSingleton<AboutPopupViewModel>();
+			builder.Services.AddSingleton<FilterAndSortViewModel>();
 
 			//-----------------------------
 			// Setup the database migration //
@@ -82,6 +86,48 @@ namespace Noter
 			builder.Services.AddSingleton<DatabaseMigrationService>();
 
 			return builder.Build();
+		}
+
+		private static void RemoveCheckboxPadding()
+		{
+#if ANDROID
+    Microsoft.Maui.Handlers.CheckBoxHandler.Mapper.AppendToMapping(
+        "RemoveCheckboxPadding",
+        (handler, view) =>
+        {
+            if (handler.PlatformView is Android.Widget.CheckBox nativeCheckBox)
+            {
+                nativeCheckBox.CompoundDrawablePadding = 0;
+
+                // Extra aggressive zeroing
+                nativeCheckBox.SetPadding(0, 0, 0, 0);
+                nativeCheckBox.SetPaddingRelative(0, 0, 0, 0);            
+
+                nativeCheckBox.Gravity = Android.Views.GravityFlags.CenterVertical |
+                                         Android.Views.GravityFlags.Start;
+
+                nativeCheckBox.RequestLayout();
+            }
+        });
+#endif
+		}
+
+		private static void TightenRadioButtonPadding()
+		{
+#if ANDROID
+    Microsoft.Maui.Handlers.RadioButtonHandler.Mapper.AppendToMapping(
+        "TightRadioSpacing",
+        (handler, view) =>
+        {
+            if (handler.PlatformView is Android.Widget.RadioButton nativeRadio)
+            {
+                nativeRadio.CompoundDrawablePadding = 0;   // ← reduces gap between circle & text
+                nativeRadio.SetPadding(0, 0, 0, 0);
+                nativeRadio.SetPaddingRelative(0, 0, 0, 0);
+                nativeRadio.Gravity = Android.Views.GravityFlags.CenterVertical | Android.Views.GravityFlags.Start;
+            }
+        });
+#endif
 		}
 
 		private static void CenterEntryTextVertically()
