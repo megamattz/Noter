@@ -179,7 +179,7 @@ namespace Noter.ViewModels
 
 			try
 			{
-				List<Note> notes = await _viewNotesUseCase.ExecuteAsync(searchTerm);
+				List<Note> notes = await _viewNotesUseCase.ExecuteAsync(searchTerm, null, SortingColumn.DateModified, SortDirection.Descending);
 				Notes = new ObservableCollection<Note>(notes);
 			}
 			finally

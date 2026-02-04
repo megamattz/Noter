@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Noter.Database.SqlLite;
 
@@ -10,9 +11,11 @@ using Noter.Database.SqlLite;
 namespace Noter.Database.SqlLite.Migrations
 {
     [DbContext(typeof(NoterDBContext))]
-    partial class NoterDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260204075105_converttodatetime")]
+    partial class converttodatetime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.11");

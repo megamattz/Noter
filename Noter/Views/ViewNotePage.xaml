@@ -20,17 +20,24 @@
 		</Grid.ColumnDefinitions>
 		
 		<!--Note title-->
-
-		<StackLayout
+		<Grid
 			Grid.Row="0"
-			Padding="10"
+			Padding="10,0,10,0"
 			Grid.Column="0">
-			
-			<Label Text="Note Title" />
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="20"/>
+			</Grid.RowDefinitions>
+
+			<Label 
+				Text="Note Title"
+				Grid.Row="0"/>
 			<Entry
 				Text="{Binding Note.NoteTitle}"
-				IsReadOnly="True"/>
-		</StackLayout>
+				IsReadOnly="True"
+				Grid.Row="1"/>
+		</Grid>
 		
 		<!--Note Category-->
 		<StackLayout
@@ -45,12 +52,12 @@
 		<!--Note Created-->
 		<Grid
 			Grid.Row="2"
-			Padding="10, 0, 10, 0"
+			Padding="10,0,10,0"
 			Grid.Column="0">
 
 			<Grid.RowDefinitions>
-				<RowDefinition Height="auto"/>
-				<RowDefinition Height="auto"/>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="20"/>
 			</Grid.RowDefinitions>
 
 			<Label 
@@ -61,21 +68,29 @@
 			<Entry
 				Grid.Row="1"
 				VerticalOptions="Start"
-				Text="{Binding Note.NoteCreationDate, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
+				Text="{Binding Note.NoteCreationDate, Converter={StaticResource UTCToLocalTimeConverter}, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
 				IsReadOnly="True"/>
 		</Grid>
 
 		<!--Note Updated-->
-		<StackLayout
+		<Grid
 			Grid.Row="3"
-			Padding="10"
+			Padding="10,0,10,0"
 			Grid.Column="0">
 
-			<Label Text="Date Last Updated" />
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="20"/>
+			</Grid.RowDefinitions>
+
+			<Label 
+				Text="Date Last Updated"
+				Grid.Row="0"  />
 			<Entry
-				Text="{Binding Note.NoteModifiedDate}, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
-				IsReadOnly="True"/>
-		</StackLayout>
+				Text="{Binding Note.NoteModifiedDate, Converter={StaticResource UTCToLocalTimeConverter}, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
+				IsReadOnly="True"
+				Grid.Row="1"/>
+		</Grid>
 
 		<!--Note Text-->
 

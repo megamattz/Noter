@@ -26,8 +26,8 @@ namespace Noter.Database.SqlLite
 				NoteText = newNote.NoteText,
 				NoteTitle = newNote.NoteTitle,
 				NoteCategory = newNote.NoteCategory,
-				NoteModifiedDate = DateTimeOffset.Now,
-				NoteCreationDate = DateTimeOffset.Now,
+				NoteModifiedDate = DateTime.UtcNow,
+				NoteCreationDate = DateTime.UtcNow,
 			});
 
 			int recordsAdded = await _dbContext.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace Noter.Database.SqlLite
 
 			note.NoteText = updatedNote.NoteText;
 			note.NoteTitle = updatedNote.NoteTitle;
-			note.NoteModifiedDate = DateTimeOffset.Now;
+			note.NoteModifiedDate = DateTime.UtcNow;
 			note.NoteCategory = updatedNote.NoteCategory;
 
 			int recordsAdded = await _dbContext.SaveChangesAsync();
@@ -63,7 +63,7 @@ namespace Noter.Database.SqlLite
 		/// </summary>
 		/// <param name="searchTerm">search term filter. If empty no filter is applied</param>
 		/// <returns></returns>
-		public async Task<List<Note>> GetNotesAsync(string searchTerm)
+		public async Task<List<Note>> GetNotesAsync(string searchTerm, NoteCategories[]? noteCategoriesFilter, SortingColumn sortingColumn, SortDirection sortDirection)
 		{
 			IQueryable<Note> query = _dbContext.Notes;
 			string searchTermLowerCase = searchTerm.Trim().ToLowerInvariant();
@@ -75,7 +75,27 @@ namespace Noter.Database.SqlLite
 
 			}
 
-			return await query.OrderByDescending(q => q.NoteId).ToListAsync();
+			if (noteCategoriesFilter != null)
+			{
+				query = query.Where(q => noteCategoriesFilter.Contains(q.NoteCategory));
+			}
+
+			if (sortingColumn == SortingColumn.DateModified)
+			{
+				query = sortDirection == SortDirection.Descending ? query.OrderByDescending(q => q.NoteModifiedDate) : query.OrderBy(q => q.NoteModifiedDate);
+			}
+
+			else if (sortingColumn == SortingColumn.DateCreated)
+			{
+				query = sortDirection == SortDirection.Descending ? query.OrderByDescending(q => q.NoteCreationDate) : query.OrderBy(q => q.NoteCreationDate);
+			}
+
+			else
+			{
+				query.OrderByDescending(q => q.NoteId);
+			}
+
+			return await query.ToListAsync();
 		}
 
 		public async Task<Note> GetNoteByIdAsync(int nodeId)

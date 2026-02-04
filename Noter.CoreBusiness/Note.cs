@@ -11,8 +11,8 @@ namespace Noter.CoreBusiness
 		public int NoteId { get; set; }
 		public string NoteTitle { get; set; } = "";
 		public string NoteText { get; set; } = "";
-		public DateTimeOffset NoteCreationDate { get; set; }
-		public DateTimeOffset NoteModifiedDate { get;set; }
+		public DateTime NoteCreationDate { get; set; }
+		public DateTime NoteModifiedDate { get;set; }
 		public NoteCategories NoteCategory { get; set; } = NoteCategories.General;
 	}
 }
