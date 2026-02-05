@@ -4,6 +4,7 @@
 				xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 				x:Class="Noter.Views.Popups.FilterAndSortPopup"
 			    xmlns:vm="clr-namespace:Noter.ViewModels"
+			    xmlns:cb="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
 			    x:DataType="vm:FilterAndSortViewModel"
 				Color="Transparent"
 			    Size="Large"
@@ -47,6 +48,7 @@
 						<CheckBox
 							Grid.Column="0"
 							Margin="0"
+							IsChecked="{Binding ShowGeneralNotesCategory}"
 							VerticalOptions="Center"/>
 						<Label 
 							Grid.Column="1"
@@ -63,6 +65,7 @@
 
 					<HorizontalStackLayout>
 						<CheckBox
+							IsChecked="{Binding ShowStarredNotesCategory}"
 							VerticalOptions="Center"/>
 						<Label 
 							Text="Starred"
@@ -76,6 +79,7 @@
 
 					<HorizontalStackLayout>
 						<CheckBox
+							IsChecked="{Binding ShowListNotesCategory}"
 							VerticalOptions="Center"/>
 						<Label Text="List"
 							   VerticalOptions="Center" 
@@ -88,6 +92,7 @@
 
 					<HorizontalStackLayout>
 						<CheckBox
+							IsChecked="{Binding ShowFunNotesCategory}"
 							VerticalOptions="Center"/>
 						<Label 
 							Text="Fun"
@@ -116,7 +121,8 @@
 					VerticalOptions="Center"
 					Grid.Column="0"
 					Spacing="0"
-					RadioButtonGroup.GroupName="OrderBy">
+					RadioButtonGroup.GroupName="OrderBy"
+					RadioButtonGroup.SelectedValue="{Binding SortingColumn}">
 
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -128,6 +134,7 @@
 							Grid.Column="0"
 							Padding="0"
 							Margin="0"
+							Value="{Static cb:SortingColumn.DateModified}"
 							HorizontalOptions="End"/>
 
 						<Label 
@@ -148,6 +155,7 @@
 							Grid.Column="0"
 							Padding="0"
 							Margin="0"
+							Value="{Static cb:SortingColumn.DateCreated}"
 							HorizontalOptions="End"/>
 						<Label 
 							Grid.Column="1"
@@ -162,7 +170,8 @@
 					VerticalOptions="Center"
 					Grid.Column="1"
 					Spacing="0"
-					RadioButtonGroup.GroupName="Direction">
+					RadioButtonGroup.GroupName="Direction"
+					RadioButtonGroup.SelectedValue="{Binding SortDirection}">
 
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -173,6 +182,7 @@
 							Grid.Column="0"
 							Padding="0"
 							Margin="0"
+							Value="{Static cb:SortDirection.Descending}"
 							HorizontalOptions="End"/>	
 						<Label 
 							Grid.Column="1"
@@ -192,6 +202,7 @@
 							Grid.Column="0"
 							Padding="0"
 							Margin="0"
+							Value="{Static cb:SortDirection.Ascending}"
 							HorizontalOptions="End"/>
 						<Label
 							Grid.Column="1" 
@@ -220,7 +231,7 @@
 				</Grid.ColumnDefinitions>
 
 				<Button
-				Text="Save"			
+				Text="Save"
 				Grid.Row="0"
 				Grid.Column="0"/>
 
