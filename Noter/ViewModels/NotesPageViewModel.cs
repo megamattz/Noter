@@ -8,6 +8,7 @@ using Noter.UseCases.UseCaseInterfaces;
 using CommunityToolkit.Maui.Views;
 using Noter.Views.Popups;
 using CommunityToolkit.Maui.Core;
+using Noter.Models;
 
 namespace Noter.ViewModels
 {
@@ -23,7 +24,7 @@ namespace Noter.ViewModels
 		private readonly IViewNotesUseCase _viewNotesUseCase;
 		private readonly IDeleteNoteUseCase _deleteNoteUseCase;
 		private readonly AboutPopupViewModel _aboutPopupViewModel;
-		private readonly FilterAndSortViewModel _filterAndSortViewModel;
+		private readonly FilterAndSortPopupViewModel _filterAndSortViewModel;
 
 		private ContentPage? _currentPage;
 
@@ -69,7 +70,7 @@ namespace Noter.ViewModels
 
 
 		public NotesPageViewModel(IViewNotesUseCase viewNotesUseCase, IDeleteNoteUseCase deleteNoteUseCase,
-			AboutPopupViewModel aboutPopupViewModel, FilterAndSortViewModel filterAndSortViewModel)
+			AboutPopupViewModel aboutPopupViewModel, FilterAndSortPopupViewModel filterAndSortViewModel)
 		{
 			_viewNotesUseCase = viewNotesUseCase;
 			_deleteNoteUseCase = deleteNoteUseCase;
@@ -125,7 +126,12 @@ namespace Noter.ViewModels
 			if (_currentPage != null)
 			{
 				Popup popup = new FilterAndSortPopup(_filterAndSortViewModel);
-				await _currentPage.ShowPopupAsync(popup);
+				object? rawPopupResult = await _currentPage.ShowPopupAsync(popup);
+
+				if (rawPopupResult != null && rawPopupResult is FilterAndSortResult)
+				{
+					FilterAndSortResult filterAndSortResult = (FilterAndSortResult)rawPopupResult;
+				}
 			}
 		}
 

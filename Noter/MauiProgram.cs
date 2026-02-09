@@ -78,7 +78,7 @@ namespace Noter
 			builder.Services.AddSingleton<AddEditNotePageViewModel>();
 			builder.Services.AddSingleton<ViewNoteViewModel>();
 			builder.Services.AddSingleton<AboutPopupViewModel>();
-			builder.Services.AddSingleton<FilterAndSortViewModel>();
+			builder.Services.AddSingleton<FilterAndSortPopupViewModel>();
 
 			//-----------------------------
 			// Setup the database migration //

@@ -3,14 +3,16 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using Noter.CoreBusiness;
+using Noter.Models;
 
 namespace Noter.ViewModels
 {
-	public class FilterAndSortViewModel : INotifyPropertyChanged
+	public class FilterAndSortPopupViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public ICommand ClosePopup { get; }
+		public ICommand SaveSortAndFilterOptions { get; }
 
 		private Popup? _popup;
 
@@ -99,9 +101,10 @@ namespace Noter.ViewModels
 			}
 		}
 
-		public FilterAndSortViewModel()
+		public FilterAndSortPopupViewModel()
 		{
 			ClosePopup = new Command(async () => await CloseFilterAndSortPopup());
+			SaveSortAndFilterOptions = new Command(async () => await SaveFilterAndSortOptions());
 		}
 
 		public void SetCurrentPopupView(Popup popup)
@@ -117,6 +120,21 @@ namespace Noter.ViewModels
 			}
 		}
 
+		public async Task SaveFilterAndSortOptions()
+		{
+			if (_popup != null)
+			{
+				FilterAndSortResult filterAndSortResult = new FilterAndSortResult()
+				{
+					SortingColumn = SortingColumn,
+					SortDirection = SortDirection,
+					SelectedCategories = GetSelectedCategories(),
+				};			
+
+				await _popup.CloseAsync(filterAndSortResult);
+			}
+		}
+
 		protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -126,7 +144,7 @@ namespace Noter.ViewModels
 		{
 			List<NoteCategories> noteCategories = new List<NoteCategories>();
 
-			if (_showListNotesCategory) {noteCategories.Add(NoteCategories.General); }
+			if (_showGeneralNotesCategory) {noteCategories.Add(NoteCategories.General); }
 			if (_showStarredNotesCategory) { noteCategories.Add(NoteCategories.Starred); }
 			if (_showListNotesCategory) { noteCategories.Add(NoteCategories.Tick); }
 			if (_showFunNotesCategory) { noteCategories.Add(NoteCategories.Game); }

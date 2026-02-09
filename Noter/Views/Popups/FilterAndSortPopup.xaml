@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 				xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 				x:Class="Noter.Views.Popups.FilterAndSortPopup"
 			    xmlns:vm="clr-namespace:Noter.ViewModels"
 			    xmlns:cb="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
-			    x:DataType="vm:FilterAndSortViewModel"
+			    xmlns:m="clr-namespace:Noter.Models"
+			    x:DataType="vm:FilterAndSortPopupViewModel"
 				Color="Transparent"
 			    Size="Large"
 			    HorizontalOptions="Fill"
@@ -216,10 +217,10 @@
 			
 			<!--Buttons-->
 			<Grid
-			Grid.Row="5"
-			Grid.Column="0"
-			ColumnSpacing="10"
-			Padding="10,5,10,5">
+				Grid.Row="5"
+				Grid.Column="0"
+				ColumnSpacing="10"
+				Padding="10,5,10,5">
 
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*" />
@@ -231,16 +232,16 @@
 				</Grid.ColumnDefinitions>
 
 				<Button
-				Text="Save"
-				Grid.Row="0"
-				Grid.Column="0"/>
+					Text="Save"
+					Command="{Binding SaveSortAndFilterOptions}"
+					Grid.Row="0"
+					Grid.Column="0"/>
 
 				<Button
-				x:Name="btnCancel"
-				Text="Cancel"
-				Command="{Binding ClosePopup}"
-				Grid.Row="0"
-				Grid.Column="1"/>
+					Text="Cancel"
+					Command="{Binding ClosePopup}"
+					Grid.Row="0"
+					Grid.Column="1"/>
 			</Grid>
 		</Grid>
 
