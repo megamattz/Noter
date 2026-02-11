@@ -63,7 +63,7 @@ namespace Noter.Database.SqlLite
 		/// </summary>
 		/// <param name="searchTerm">search term filter. If empty no filter is applied</param>
 		/// <returns></returns>
-		public async Task<List<Note>> GetNotesAsync(string searchTerm, NoteCategories[]? noteCategoriesFilter, SortingColumn sortingColumn, SortDirection sortDirection)
+		public async Task<List<Note>> GetNotesAsync(string searchTerm, NoteCategories[] noteCategoriesFilter, SortingColumn sortingColumn, SortDirection sortDirection)
 		{
 			IQueryable<Note> query = _dbContext.Notes;
 			string searchTermLowerCase = searchTerm.Trim().ToLowerInvariant();
@@ -75,9 +75,10 @@ namespace Noter.Database.SqlLite
 
 			}
 
-			if (noteCategoriesFilter != null)
+			if (noteCategoriesFilter != null && noteCategoriesFilter.Length > 0)
 			{
-				query = query.Where(q => noteCategoriesFilter.Contains(q.NoteCategory));
+				List<NoteCategories> filterList = noteCategoriesFilter.ToList();
+				query = query.Where(q => filterList.Any(c => c == q.NoteCategory));
 			}
 
 			if (sortingColumn == SortingColumn.DateModified)

@@ -20,11 +20,13 @@ namespace Noter.ViewModels
 		private Note? _selectedNote;
 
 		private string _searchTerm = "";
+		private string _lastsearchTerm = ""; 
 
 		private readonly IViewNotesUseCase _viewNotesUseCase;
 		private readonly IDeleteNoteUseCase _deleteNoteUseCase;
 		private readonly AboutPopupViewModel _aboutPopupViewModel;
 		private readonly FilterAndSortPopupViewModel _filterAndSortViewModel;
+		private FilterAndSortResult _filterAndSortResult = new FilterAndSortResult();
 
 		private ContentPage? _currentPage;
 
@@ -83,7 +85,7 @@ namespace Noter.ViewModels
 			DeleteNoteCommand = new Command<Note>(async note => await DeleteNote(note));
 			ShowAboutCommand = new Command(async () => await ShowAboutPopup());
 			ShowFilterAndSortCommand = new Command(async () => await ShowFilterAndSortPopup());
-			SearchCommand = new Command<string>(async searchTerm => await LoadNotesList(searchTerm));
+			SearchCommand = new Command<string>(async searchTerm => await SearchNotes(searchTerm));
 		}
 
 		public ObservableCollection<Note> Notes
@@ -125,12 +127,18 @@ namespace Noter.ViewModels
 		{
 			if (_currentPage != null)
 			{
-				Popup popup = new FilterAndSortPopup(_filterAndSortViewModel);
+				// Set the initial options for the filter and sort to match the current selection
+				FilterAndSortPopupViewModel filterAndSortPopupViewModel = new FilterAndSortPopupViewModel();
+				filterAndSortPopupViewModel.SetFilterAndSortOptions(_filterAndSortResult);
+
+				Popup popup = new FilterAndSortPopup(filterAndSortPopupViewModel);				
+
 				object? rawPopupResult = await _currentPage.ShowPopupAsync(popup);
 
 				if (rawPopupResult != null && rawPopupResult is FilterAndSortResult)
 				{
-					FilterAndSortResult filterAndSortResult = (FilterAndSortResult)rawPopupResult;
+					_filterAndSortResult = (FilterAndSortResult)rawPopupResult;
+					await LoadNotesList(_searchTerm);
 				}
 			}
 		}
@@ -178,14 +186,33 @@ namespace Noter.ViewModels
 			}
 		}
 
+		public async Task SearchNotes(string searchTerm)
+		{
+			if (searchTerm == _lastsearchTerm)
+			{
+				// Prevent Duplicate searches of the same thing
+				return;
+			}
+
+			_lastsearchTerm = searchTerm;
+
+			await LoadNotesList(searchTerm);
+		}
+
 		public async Task LoadNotesList(string searchTerm = "")
 		{
 			// Prevent concurrency issues with the DB as it only supports one operation at a time
-			await _dbSemaphore.WaitAsync();
+			await _dbSemaphore.WaitAsync();			
 
 			try
 			{
-				List<Note> notes = await _viewNotesUseCase.ExecuteAsync(searchTerm, null, SortingColumn.DateModified, SortDirection.Descending);
+				_searchTerm = searchTerm;
+
+				List<Note> notes = await _viewNotesUseCase.ExecuteAsync(searchTerm, 
+					_filterAndSortResult.SelectedCategories,
+					_filterAndSortResult.SortingColumn,
+					_filterAndSortResult.SortDirection);
+
 				Notes = new ObservableCollection<Note>(notes);
 			}
 			finally

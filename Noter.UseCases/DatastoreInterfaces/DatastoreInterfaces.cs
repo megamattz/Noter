@@ -4,7 +4,7 @@ namespace Noter.UseCases.DatabaseInterfaces
 {
 	public interface INoterDataStoreRepository
 	{
-		Task<List<Note>> GetNotesAsync(string searchTerm, NoteCategories[]? noteCategoriesFilter, SortingColumn sortingColumn, SortDirection sortDirection);
+		Task<List<Note>> GetNotesAsync(string searchTerm, NoteCategories[] noteCategoriesFilter, SortingColumn sortingColumn, SortDirection sortDirection);
 
 		Task<Note> GetNoteByIdAsync(int noteId);
 

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Android.Telephony;
 using CommunityToolkit.Maui.Views;
 using Noter.CoreBusiness;
 using Noter.Models;
@@ -110,6 +111,17 @@ namespace Noter.ViewModels
 		public void SetCurrentPopupView(Popup popup)
 		{
 			_popup = popup;
+		}
+
+		public void SetFilterAndSortOptions(FilterAndSortResult filterAndSortResult)
+		{
+			SortingColumn = filterAndSortResult.SortingColumn;
+			SortDirection = filterAndSortResult.SortDirection;
+
+			ShowGeneralNotesCategory = filterAndSortResult.SelectedCategories.Any(ct => ct == NoteCategories.General);
+			ShowStarredNotesCategory = filterAndSortResult.SelectedCategories.Any(ct => ct == NoteCategories.Starred);
+			ShowListNotesCategory = filterAndSortResult.SelectedCategories.Any(ct => ct == NoteCategories.Tick);
+			ShowFunNotesCategory = filterAndSortResult.SelectedCategories.Any(ct => ct == NoteCategories.Game);
 		}
 
 		public async Task CloseFilterAndSortPopup()
