@@ -25,7 +25,10 @@ namespace Noter
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+					fonts.AddFont("Lunasima-Regular.ttf", "LunasimaRegular");
+					fonts.AddFont("Lunasima-Bold.ttf", "LunasimaBold");
+
+				});
 
 			// These are needed becuase .NET Maiu has some default behaviours and padding that cannot be changed via xaml directly
 			// and interfere with how I want the layout to look. 
@@ -111,6 +114,7 @@ namespace Noter
         });
 #endif
 		}
+
 
 		private static void TightenRadioButtonPadding()
 		{

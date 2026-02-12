@@ -5,10 +5,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Noter"
 	xmlns:views="clr-namespace:Noter.Views"
+	x:Name="shellMain"
     Shell.FlyoutBehavior="Flyout"
     Title="Noter">
 
-    <ShellContent
+	<Shell.TitleView>
+		<Label
+			BindingContext="{x:Reference shellMain}"
+			FontSize="20"
+			FontFamily="LunasimaBold"
+			VerticalOptions="Center"
+            Text="{Binding Path=CurrentItem.Title, Mode=OneWay}"/>
+		
+	</Shell.TitleView>
+
+	<ShellContent
         Title="Noter"
         ContentTemplate="{DataTemplate views:NotesPage}"
         Route="NotesPage" />

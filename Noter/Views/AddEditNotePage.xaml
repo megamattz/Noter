@@ -5,7 +5,7 @@
 			 xmlns:cb="clr-namespace:Noter.CoreBusiness;assembly=Noter.CoreBusiness"
 			 x:DataType="vm:AddEditNotePageViewModel"
              x:Class="Noter.Views.AddEditNotePage"
-             Title="Add Note">
+             Title="{Binding PageTitle}">
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -25,7 +25,10 @@
 			Padding="10"
 			Grid.Row="0"
 			Grid.Column="0">
-			<Label Text="Note Title" />
+			<Label 
+				Text="Note Title"
+				FontSize="16"
+				Style="{StaticResource DescriptionLabelStyle}"/>
 
 			<Border
 				Stroke="{StaticResource EditableTextBorderColor}"
@@ -43,7 +46,10 @@
 			Padding="10"
 			Grid.Row="1"
 			Grid.Column="0">			
-			<Label Text="Category" Padding="0,5,5,5"/>
+			<Label
+				Style="{StaticResource DescriptionLabelStyle}"
+				Text="Category"
+				Padding="0,5,5,5"/>
 			<Grid
 				RadioButtonGroup.GroupName="NoteCategoryGroup" 
 				RadioButtonGroup.SelectedValue="{Binding Category}">
@@ -90,7 +96,9 @@
 			Grid.Column="0"
 			VerticalOptions="FillAndExpand">
 			
-			<Label Text="Note Text" />
+			<Label 
+				Text="Note Text"
+				Style="{StaticResource DescriptionLabelStyle}"/>
 
 			<Border
 				Stroke="{StaticResource EditableTextBorderColor}"

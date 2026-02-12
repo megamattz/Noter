@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Android.Telephony;
 using CommunityToolkit.Maui.Views;
 using Noter.CoreBusiness;
 using Noter.Models;

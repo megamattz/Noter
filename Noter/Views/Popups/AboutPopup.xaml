@@ -33,7 +33,7 @@
 				HorizontalOptions="FillAndExpand"
 				Grid.Row="0">
 				<Label Text="Noter"
-                   FontSize="Title"
+                   FontSize="20"
                    HorizontalOptions="Center" />
 
 					<HorizontalStackLayout>

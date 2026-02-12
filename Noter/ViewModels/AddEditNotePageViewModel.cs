@@ -28,6 +28,28 @@ namespace Noter.ViewModels
 		private int? _editingNoteId = null;
 		private NoteCategories _noteCategory = NoteCategories.General;
 
+		public int? EditingNoteID
+		{
+			get
+			{
+				return _editingNoteId;
+			}
+			set
+			{
+				_editingNoteId = value;
+				OnPropertyChanged(nameof(EditingNoteID));
+				OnPropertyChanged(nameof(PageTitle));
+			}
+		}
+
+		public string PageTitle
+		{
+			get
+			{
+				return EditingNoteID == null ? "Add Note" : "Edit Note";
+			}
+			set { }
+		}
 
 		public string NoteTitle
 		{
@@ -138,14 +160,14 @@ namespace Noter.ViewModels
 		{
 			Note note = await _viewNoteUseCase.ExecuteAsync(noteId);
 
-			_editingNoteId = note.NoteId;
+			EditingNoteID = note.NoteId;
 			NoteTitle = note.NoteTitle ?? "";
 			NoteText = note.NoteText ?? "";
 		}
 
 		public void ClearNote()
 		{
-			_editingNoteId = null;
+			EditingNoteID = null;
 			NoteTitle = "";
 			NoteText = "";
 		}
@@ -159,7 +181,7 @@ namespace Noter.ViewModels
 		private async Task SaveNote()
 		{
 			// New Note
-			if (_editingNoteId == null)
+			if (EditingNoteID == null)
 			{
 				// Save the new note
 				Note note = new Note()
@@ -177,7 +199,7 @@ namespace Noter.ViewModels
 				{
 					NoteTitle = _noteTitle,
 					NoteText = _noteText,
-					NoteId = _editingNoteId.Value,
+					NoteId = EditingNoteID.Value,
 					NoteCategory = _noteCategory
 				};
 
@@ -185,7 +207,7 @@ namespace Noter.ViewModels
 			}
 
 			// Navigate back to the notes list or the view note page if thats where we came from
-			if (_sourcePage == Enums.SourcePage.ViewNotePage && _editingNoteId != null)
+			if (_sourcePage == Enums.SourcePage.ViewNotePage && EditingNoteID != null)
 			{
 				await Shell.Current.GoToAsync($"//ViewNotePage?noteId={_editingNoteId}");
 			}

@@ -4,12 +4,12 @@
 			 xmlns:vm="clr-namespace:Noter.ViewModels"
 			 x:DataType="vm:ViewNoteViewModel"
              x:Class="Noter.Views.ViewNotePage"
-             Title="ViewNotePage">
+             Title="View Note">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="60" />
 			<RowDefinition Height="120" />
-			<RowDefinition Height="50" />
+			<RowDefinition Height="60" />
 			<RowDefinition Height="50" />
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="80" />
@@ -32,6 +32,7 @@
 
 			<Label 
 				Text="Note Title"
+				Style="{StaticResource DescriptionLabelStyle}"
 				Grid.Row="0"/>
 			<Entry
 				Text="{Binding Note.NoteTitle}"
@@ -43,25 +44,29 @@
 		<StackLayout
 			Padding="10"
 			Grid.Row="1">
-			<Label Text="Category" Padding="0,5,0,5"/>
+			<Label
+				Text="Category" 
+				Style="{StaticResource DescriptionLabelStyle}"
+				Padding="0,5,0,5"/>
 			<Image
 				HorizontalOptions="Start"
 				Source="{Binding Note.NoteCategory, Converter={StaticResource CategoryConverter}}"/>
 		</StackLayout>
 		
-		<!--Note Created-->
+		<!--Date Created-->
 		<Grid
 			Grid.Row="2"
 			Padding="10,0,10,0"
 			Grid.Column="0">
 
 			<Grid.RowDefinitions>
-				<RowDefinition Height="20"/>
+				<RowDefinition Height="25"/>
 				<RowDefinition Height="20"/>
 			</Grid.RowDefinitions>
 
 			<Label 
-				Text="Date Created" 
+				Text="Date Created"
+				Style="{StaticResource DescriptionLabelStyle}"
 				Grid.Row="0"
 
 				VerticalOptions="End"/>
@@ -72,19 +77,20 @@
 				IsReadOnly="True"/>
 		</Grid>
 
-		<!--Note Updated-->
+		<!--Date Last Updated-->
 		<Grid
 			Grid.Row="3"
 			Padding="10,0,10,0"
 			Grid.Column="0">
 
 			<Grid.RowDefinitions>
-				<RowDefinition Height="20"/>
+				<RowDefinition Height="25"/>
 				<RowDefinition Height="20"/>
 			</Grid.RowDefinitions>
 
 			<Label 
 				Text="Date Last Updated"
+				Style="{StaticResource DescriptionLabelStyle}"
 				Grid.Row="0"  />
 			<Entry
 				Text="{Binding Note.NoteModifiedDate, Converter={StaticResource UTCToLocalTimeConverter}, StringFormat='{0:dd/MM/yyyy h:mm tt}'}"
@@ -98,7 +104,9 @@
 			Grid.Row="4"
 			Padding="10"
 			Grid.Column="0">			
-			<Label Text="Note Text" />
+			<Label 
+				Text="Note Text"
+				Style="{StaticResource DescriptionLabelStyle}"	/>
 			<Editor
 				Text="{Binding Note.NoteText}"
 				IsReadOnly="True"

@@ -23,17 +23,26 @@
 				<RowDefinition Height="auto"/>
 				<RowDefinition Height="auto"/>
 				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
 			</Grid.RowDefinitions>
-
+			
+			<!--Title-->
+			<Label 
+				Text="Sort and Filter"
+				Padding="0,10,0,0"
+			    FontSize="20"
+			    HorizontalOptions="Center" />
 
 			<!--Filter Options-->
 			<Label
-				Grid.Row="0"
+				Grid.Row="1"
 				Padding="10"
+				Style="{StaticResource DescriptionLabelStyle}"
 				Text="Filter Options"/>
 
 			<Grid
-				Grid.Row="1">
+				Grid.Row="2"
+				Padding="0,0,0,10">
 
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
@@ -106,12 +115,13 @@
 
 			<!--Sort By Options-->
 			<Label 
-				Grid.Row="2"
-				Padding="10"
+				Grid.Row="3"
+				Padding="10,10,10,0"
+				Style="{StaticResource DescriptionLabelStyle}"
 				Text="Sort By"/>
 
 			<Grid
-				Grid.Row="3">
+				Grid.Row="4">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="*" />
