@@ -101,22 +101,25 @@
 			BindingContext="{Binding .}" 
 			Grid.Row="3"
 			VerticalOptions="FillAndExpand"
+			BackgroundColor="White"
 			SelectionMode="None"
 			Grid.Column="0">
 			<CollectionView.ItemTemplate>
 				<DataTemplate
 					x:DataType="core:Note">
 					
-					<SwipeView>
+					<SwipeView BackgroundColor="White">
 
 						<SwipeView.LeftItems>
 							<SwipeItems Mode="Reveal">
 
 								<SwipeItem Text="Edit"
+									BackgroundColor="White"
 									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.EditNoteCommand}"
 									CommandParameter="{Binding .}" />
 
 								<SwipeItem Text="Delete"
+									BackgroundColor="White"
 									Command="{Binding Source={x:Reference notesCollection}, Path=BindingContext.DeleteNoteCommand}"	   
 									CommandParameter="{Binding .}" />
 
