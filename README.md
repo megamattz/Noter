@@ -1,6 +1,6 @@
 ![Demo](https://img.shields.io/badge/type-Demo-hotpink?style=for-the-badge)
 
-> **This is a demo project** – I have done some basic testing of it however I would not suggest using it to store anything of high importance as the notes are stored only on the local device. 
+> **This is a demo project** – I have done some basic testing of it on Android however I would not suggest using it to store anything of high importance as the notes are stored only on the local device. 
 
 # Noter
 
