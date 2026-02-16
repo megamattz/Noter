@@ -15,7 +15,9 @@ A simple .Net MAUI Application for taking notes on your phone. You Add/Delete/Vi
 <img width="360" height="800" alt="Screenshot_1771226609" src="https://github.com/user-attachments/assets/428930c1-4ede-45e4-9a34-60f0af889b30" />
 
 
-# Fonts
+# Notes
 This project makes use of the Lunasima font from Google Fonts under the OFL. See Resouces\Fonts\Lunasima\OFL.txt for the open fonts licence. 
 
 This also makes use of the CommunityToolkit.Maui project for the popups. See https://github.com/CommunityToolkit/Maui
+
+The notes are stored using SqlLite. 
