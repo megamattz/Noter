@@ -152,6 +152,8 @@ namespace Noter.ViewModels
 			_editNoteUseCase = editNoteUseCase;
 			_viewNoteUseCase = viewNoteUseCase;
 
+			ClearNote();
+
 			SaveNoteCommand = new Command(async () => await SaveNote());
 			CancelCommand = new Command(async () => await Cancel());
 		}
@@ -163,6 +165,7 @@ namespace Noter.ViewModels
 			EditingNoteID = note.NoteId;
 			NoteTitle = note.NoteTitle ?? "";
 			NoteText = note.NoteText ?? "";
+			Category = note.NoteCategory;
 		}
 
 		public void ClearNote()
