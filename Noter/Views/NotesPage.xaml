@@ -179,7 +179,6 @@
 		</CollectionView>
 		
 		<!--Action Buttons-->
-
 		<Grid
 			Grid.Column="0"
 			Grid.Row="4"

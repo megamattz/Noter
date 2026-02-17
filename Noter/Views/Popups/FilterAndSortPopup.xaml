@@ -8,7 +8,6 @@
 			    xmlns:m="clr-namespace:Noter.Models"
 			    x:DataType="vm:FilterAndSortPopupViewModel"
 				Color="Transparent"
-			    Size="Large"
 			    HorizontalOptions="Fill"
 			    CanBeDismissedByTappingOutsideOfPopup="True">
 

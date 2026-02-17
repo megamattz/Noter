@@ -6,8 +6,34 @@
 
 	<Style TargetType="Button">
 		<Setter Property="Margin" Value="{StaticResource ButtonMargin}" />
+		<Setter Property="TextColor" Value="White"/>
 	</Style>
 
-	
+	<Style TargetType="Grid">
+		<Setter Property="BackgroundColor" Value="White" />
+	</Style>
+
+	<Style TargetType="Entry">
+		<Setter Property="TextColor" Value="Black" />
+		<Setter Property="BackgroundColor" Value="White" />
+	</Style>
+
+	<Style TargetType="Editor">
+		<Setter Property="TextColor" Value="Black" />
+		<Setter Property="BackgroundColor" Value="White" />
+	</Style>
+
+
+	<Style TargetType="Label">
+		<Setter Property="TextColor" Value="Black" />
+		<Setter Property="BackgroundColor" Value="White" />
+	</Style>
+
+	<Style TargetType="RadioButton">
+		<Setter Property="TextColor" Value="Black" />
+		<Setter Property="BackgroundColor" Value="White" />
+		<Setter Property="BorderColor" Value="Black" />
+	</Style>
+
 </ResourceDictionary>
 

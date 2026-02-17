@@ -38,6 +38,7 @@ namespace Noter
 			CenterEntryTextVertically();
 			RemoveCheckboxPadding();
 			TightenRadioButtonPadding();
+			ForceRadioButtonGlyphBlack();
 
 
 #if DEBUG
@@ -182,6 +183,47 @@ namespace Noter
 				}
 #endif
 			});
+		}
+
+		private static void ForceRadioButtonGlyphBlack()
+		{
+#if ANDROID
+			Microsoft.Maui.Handlers.RadioButtonHandler.Mapper.AppendToMapping(
+				"ForceBlackGlyph",
+				(handler, view) =>
+				{
+					if (handler.PlatformView is Android.Widget.RadioButton nativeRadio)
+					{
+						// Force black tint for both states (selected & unselected)
+						var black = Android.Graphics.Color.Black;
+
+						// Simple version: black for everything
+						nativeRadio.ButtonTintList = Android.Content.Res.ColorStateList.ValueOf(black);
+
+						// More precise version: black outline when unchecked, black dot when checked
+						// (uncomment if you want different behavior for checked vs unchecked)
+						/*
+						var states = new int[][]
+						{
+							new int[] { Android.Resource.Attribute.StateChecked },  // checked
+							new int[] { }                                          // unchecked
+						};
+
+						var colors = new int[]
+						{
+							black,   // checked dot
+							black    // unselected outline
+						};
+
+						nativeRadio.ButtonTintList = new Android.Content.Res.ColorStateList(states, colors);
+						*/
+
+						// Optional: force redraw in case the change doesn't apply immediately
+						nativeRadio.Invalidate();
+						nativeRadio.RequestLayout();
+					}
+				});
+#endif
 		}
 
 		private static void RemoveUnderlineOnEntry()

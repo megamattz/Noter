@@ -7,6 +7,9 @@
 	xmlns:views="clr-namespace:Noter.Views"
 	x:Name="shellMain"
     Shell.FlyoutBehavior="Flyout"
+	Shell.BackgroundColor="White"     
+	Shell.ForegroundColor="Black"	
+	Shell.TitleColor="Black"
     Title="Noter">
 
 	<Shell.TitleView>

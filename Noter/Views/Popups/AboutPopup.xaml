@@ -6,7 +6,6 @@
 			    xmlns:vm="clr-namespace:Noter.ViewModels"
 			    x:DataType="vm:AboutPopupViewModel"
 				Color="Transparent"
-			    Size="Large"
 			    HorizontalOptions="Fill"
 			    CanBeDismissedByTappingOutsideOfPopup="True">
 
